@@ -1,4 +1,5 @@
 import com.zhf.util.DateUtil;
+import com.zhf.util.PasswordUtil;
 
 /**
  * @author: 曾鸿发
@@ -8,9 +9,30 @@ import com.zhf.util.DateUtil;
 public class MainTest {
 
     public static void main(String[] args) {
-        String weekStartTime = DateUtil.getWeekStartTime();
-        String weekEndTime = DateUtil.getWeekEndTime();
-        System.out.println(weekStartTime);
-        System.out.println(weekEndTime);
+        // String pad = "@zhf19970510##";
+        // System.out.println(PasswordUtil.isContainsReasonablePassword(pad));
+        // pad = "@19970510";
+        // System.out.println(PasswordUtil.isContainsReasonablePassword(pad));
+        // pad = "zhf19970510";
+        // System.out.println(PasswordUtil.isContainsReasonablePassword(pad));
+        // pad = "Zhf@19970510";
+        // System.out.println(PasswordUtil.isContainsReasonablePassword(pad));
+        System.out.println(PasswordUtil.isSpecialCharacter("!"));
+        System.out.println(PasswordUtil.isSpecialCharacter("@"));
+        System.out.println(PasswordUtil.isSpecialCharacter("#"));
+        System.out.println(PasswordUtil.isSpecialCharacter("^"));
+        System.out.println(PasswordUtil.isSpecialCharacter("%"));
+        System.out.println(PasswordUtil.isSpecialCharacter("&"));
+        System.out.println(PasswordUtil.isSpecialCharacter("?"));
+        System.out.println(PasswordUtil.isSpecialCharacter("$"));
+        System.out.println(PasswordUtil.isSpecialCharacter("."));
+        System.out.println(PasswordUtil.isSpecialCharacter("["));
+        System.out.println(PasswordUtil.isSpecialCharacter("~"));
+        System.out.println(PasswordUtil.isSpecialCharacter("{"));
+        System.out.println(PasswordUtil.isSpecialCharacter("+"));
+        System.out.println(PasswordUtil.isSpecialCharacter("*"));
+
+        System.out.println(DateUtil.checkDateInSection("2023-9", "2021-7", "2022-7"));
+
     }
 }

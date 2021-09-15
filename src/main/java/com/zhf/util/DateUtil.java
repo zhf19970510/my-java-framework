@@ -59,5 +59,8 @@ public class DateUtil {
         return simpleDateFormat.format(cal.getTime()) + "235959999";
     }
 
+    public static boolean checkDateInSection(String checkDate, String startTime, String endTime){
+        return checkDate != null && checkDate.compareTo(startTime) > 0 && checkDate.compareTo(endTime) < 0;
+    }
 
 }
