@@ -1,0 +1,14 @@
+server:
+  port: 8087
+
+spring:
+  profiles:
+    active: dev
+  main:
+    allow-bean-definition-overriding: true  #当遇到同样名字的时候，是否允许覆盖注册
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  aop:
+    auto: true
