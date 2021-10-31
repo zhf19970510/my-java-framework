@@ -174,4 +174,18 @@ public class DateUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(cal.getTime());
     }
+
+    /**
+     * 得到 X sec后时间
+     *
+     * @param d
+     * @param sec
+     * @return
+     */
+    public static Date getDateBeforeSec(Date d, int sec) {
+        Calendar now = Calendar.getInstance();
+        now.setTime(d);
+        now.set(Calendar.SECOND, now.get(Calendar.SECOND) - sec);
+        return now.getTime();
+    }
 }

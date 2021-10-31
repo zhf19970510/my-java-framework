@@ -6,9 +6,37 @@ spring:
     active: dev
   main:
     allow-bean-definition-overriding: true  #当遇到同样名字的时候，是否允许覆盖注册
+  messages:
+    # 定义资源文件，多个资源文件使用逗号进行分割
+    basename: login,login_en_US,login_zh_CN
+    encoding: UTF-8
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  mvc:
+    servlet:
+      load-on-startup: 1
+
   aop:
     auto: true
+
+  task:
+    scheduling:
+      pool:
+        size: 10
+
+logging:
+  config: classpath:logback.xml
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath*:mapper/*Mapper.xml
+  type-aliases-package: com.zhf.entity
