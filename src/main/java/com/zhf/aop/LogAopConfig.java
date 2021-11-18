@@ -55,7 +55,10 @@ public class LogAopConfig {
         try {
             // 执行目标方法
             ret = joinPoint.proceed(args);
-            log.info(signature.getName() + "==>result:" + JSON.toJSONString(ret));
+            try{
+                log.info(signature.getName() + "==>result:" + ret);
+            }catch (Exception e){
+            }
         } catch (Throwable throwable) {
             throwable.printStackTrace();
             throw throwable;

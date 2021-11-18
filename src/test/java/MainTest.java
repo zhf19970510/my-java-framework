@@ -147,10 +147,75 @@ public class MainTest {
             String time8 = "2021-10-30 23:59:59";
             System.out.println(simpleDateFormat1.parse(time7).getTime());
             System.out.println(simpleDateFormat1.parse(time8).getTime());
+
+            System.out.println("2021-11-01 00:00:00");
+
+            String time9 = "2021-11-01 00:00:00";
+            String time10 = "2021-11-01 23:59:59";
+            System.out.println(simpleDateFormat1.parse(time9).getTime());
+            System.out.println(simpleDateFormat1.parse(time10).getTime());
+
+            String time11 = "2021-11-03 00:00:00";
+            String time12 = "2021-11-03 23:59:59";
+            System.out.println(simpleDateFormat1.parse(time11).getTime());
+            System.out.println(simpleDateFormat1.parse(time12).getTime());
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("修改设备：");
+        String s2 = null;
+        stringBuffer.append(s2);
+        String substring = stringBuffer.substring(0, stringBuffer.length() - 1);
+        System.out.println(substring);
+        //
+        // Map<String, List<User>> map = new HashMap<>();
+        // List<User> users1 = new ArrayList<>();
+        // users1.add( new User(1, "111", "111", 1));
+        // users1.add(new User(2, "111", "222", 2));
+        // map.put("111", users1);
+        // List<User> users2 = new ArrayList<>();
+        // users2.add(new User(3, "222", "222", 3));
+        // users2.add(new User(4, "222", "333", 4));
+        // map.put("222", users2);
+        // Set<Map.Entry<String, List<User>>> entries = map.entrySet();
+        // for (Map.Entry<String, List<User>> entry : entries){
+        //     System.out.println(entry.getKey() + " : " + entry.getValue());
+        // }
+        //
+        // // 试试可不可以将可以替换
+        // if(map.containsKey("111")){
+        //     List<User> users3 = map.get("111");
+        //     users3.stream().forEach(t -> t.setUsername("333"));
+        //     map.put("333", users3);
+        //     map.remove("111");
+        // }
+        //
+        // for (Map.Entry<String, List<User>> entry : entries){
+        //     System.out.println(entry.getKey() + " : " + entry.getValue());
+        // }
+
+
+        List<String> infos = new ArrayList<>();
+        infos.add("aaa");
+        infos.add("bbb");
+        List<String> collect1 = infos.stream().filter(t -> "ccc".equals(t)).collect(Collectors.toList());
+        System.out.println(collect1);
+        System.out.println(collect1.size());
+        for (String tmp : collect1){
+            System.out.println(tmp);
+        }
+        System.out.println("aaa");
+
+        String offer_id ="";
+        offer_id +="    #"+"9015096";
+        offer_id = offer_id.trim();
+
+        String system = "动环系统";
+        system = system.replace("系统", "");
+        System.out.println(system);
     }
 
     private static List<String> getAllAlarmPointNumber(List<String> alarmPointList, Set<String> newAlarmPointNums) {

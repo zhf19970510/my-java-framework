@@ -1,6 +1,8 @@
 package com.zhf.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author: 曾鸿发
@@ -8,6 +10,8 @@ import lombok.Data;
  * @description：用户实体类
  **/
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     private Integer id;
