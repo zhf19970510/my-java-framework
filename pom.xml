@@ -129,6 +129,13 @@
             <version>3.3.0</version>
         </dependency>
 
+        <!-- 解析 User-Agent 字符串的 Java 类库。 其能够识别的内容包括： 超过150种不同的浏览器； 7种不同的浏览器类型； 超过60种不同的操作系统； 6种不同的设备类型； 9种不同的渲染引擎； 9种不同的Web应用 -->
+        <dependency>
+            <groupId>eu.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+            <version>1.21</version>
+        </dependency>
+
     </dependencies>
 
 </project>

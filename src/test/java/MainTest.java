@@ -160,16 +160,22 @@ public class MainTest {
             System.out.println(simpleDateFormat1.parse(time11).getTime());
             System.out.println(simpleDateFormat1.parse(time12).getTime());
 
+            String time13 = "2021-11-18 00:00:00";
+            String time14 = "2021-11-18 23:59:59";
+
+            System.out.println(simpleDateFormat1.parse(time13).getTime());
+            System.out.println(simpleDateFormat1.parse(time14).getTime());
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("修改设备：");
-        String s2 = null;
-        stringBuffer.append(s2);
-        String substring = stringBuffer.substring(0, stringBuffer.length() - 1);
-        System.out.println(substring);
+        //
+        // StringBuffer stringBuffer = new StringBuffer();
+        // stringBuffer.append("修改设备：");
+        // String s2 = null;
+        // stringBuffer.append(s2);
+        // String substring = stringBuffer.substring(0, stringBuffer.length() - 1);
+        // System.out.println(substring);
         //
         // Map<String, List<User>> map = new HashMap<>();
         // List<User> users1 = new ArrayList<>();
@@ -197,25 +203,27 @@ public class MainTest {
         //     System.out.println(entry.getKey() + " : " + entry.getValue());
         // }
 
+        //
+        // List<String> infos = new ArrayList<>();
+        // infos.add("aaa");
+        // infos.add("bbb");
+        // List<String> collect1 = infos.stream().filter(t -> "ccc".equals(t)).collect(Collectors.toList());
+        // System.out.println(collect1);
+        // System.out.println(collect1.size());
+        // for (String tmp : collect1){
+        //     System.out.println(tmp);
+        // }
+        // System.out.println("aaa");
+        //
+        // String offer_id ="";
+        // offer_id +="    #"+"9015096";
+        // offer_id = offer_id.trim();
+        //
+        // String system = "动环系统";
+        // system = system.replace("系统", "");
+        // System.out.println(system);
 
-        List<String> infos = new ArrayList<>();
-        infos.add("aaa");
-        infos.add("bbb");
-        List<String> collect1 = infos.stream().filter(t -> "ccc".equals(t)).collect(Collectors.toList());
-        System.out.println(collect1);
-        System.out.println(collect1.size());
-        for (String tmp : collect1){
-            System.out.println(tmp);
-        }
-        System.out.println("aaa");
 
-        String offer_id ="";
-        offer_id +="    #"+"9015096";
-        offer_id = offer_id.trim();
-
-        String system = "动环系统";
-        system = system.replace("系统", "");
-        System.out.println(system);
     }
 
     private static List<String> getAllAlarmPointNumber(List<String> alarmPointList, Set<String> newAlarmPointNums) {
