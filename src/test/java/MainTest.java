@@ -1,14 +1,19 @@
+import com.alibaba.druid.sql.visitor.functions.Now;
 import com.zhf.entity.Person;
 import com.zhf.entity.User;
 import com.zhf.factory.MyFactoryBean;
+import com.zhf.util.CommonUtil;
 import com.zhf.util.DateUtil;
 import com.zhf.util.PasswordUtil;
 import com.zhf.util.SpringUtil;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.context.ApplicationContext;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 /**
@@ -18,7 +23,12 @@ import java.util.stream.Collectors;
  **/
 public class MainTest {
 
+
+
     public static void main(String[] args) {
+
+        ExecutorService executorService = Executors.newCachedThreadPool();
+
         // String pad = "@zhf19970510##";
         // System.out.println(PasswordUtil.isContainsReasonablePassword(pad));
         // pad = "@19970510";
@@ -166,6 +176,88 @@ public class MainTest {
             System.out.println(simpleDateFormat1.parse(time13).getTime());
             System.out.println(simpleDateFormat1.parse(time14).getTime());
 
+            String startTime1 = "2021-12-08 09:50:00";
+            String endTime1 = "2021-12-08 10:15:00";
+            String endTime2 = "2021-12-05 23:59:59";
+
+            System.out.println(simpleDateFormat1.parse(startTime1).getTime());
+            System.out.println(simpleDateFormat1.parse(endTime1).getTime());
+            System.out.println(simpleDateFormat1.parse(endTime2).getTime());
+
+            String startTime1213 = "2021-12-13 00:00:00";
+            String endTime1213 = "2021-12-13 23:59:00";
+
+            System.out.println(simpleDateFormat1.parse(startTime1213).getTime());
+            System.out.println(simpleDateFormat1.parse(endTime1213).getTime());
+
+            // String time1 = "2021-12-03 ";
+            //
+            // // 结束时间
+            // Date dateEndTime2 = simpleDateFormat1.parse(endTime2);
+            // Calendar instance = Calendar.getInstance();
+            // instance.setTime(dateEndTime2);
+            // System.out.println(simpleDateFormat1.format(instance.getTime()));
+            //
+            // instance.set(Calendar.DATE, instance.get(Calendar.DATE) + 5);
+            // System.out.println(simpleDateFormat1.format(instance.getTime()));
+            //
+            // Date date = DateUtils.addMonths(new Date(), 2);
+            // System.out.println(simpleDateFormat1.format(date));
+            //
+            // String nowTime = "2021-12-01 05:00:00";
+            // Date nowTimeDate = simpleDateFormat1.parse(nowTime);
+            // Date date3 = DateUtils.addDays(nowTimeDate, 6);
+            // System.out.println(simpleDateFormat1.format(date3));
+            //
+            // String time2 = "2021-12-14 05:00:00";
+            // Date parse = simpleDateFormat1.parse(time2);
+            // Date date4 = DateUtils.addDays(parse, -6);
+            // System.out.println(simpleDateFormat1.format(date4));
+            //
+            // Date date5 = new Date();
+            //
+            // Calendar calendar = Calendar.getInstance();
+            // calendar.setTime(date5);
+            // int year = calendar.get(Calendar.YEAR);
+            // int month = calendar.get(Calendar.MONTH);
+            // int day = calendar.get(Calendar.DAY_OF_MONTH);
+            // System.out.println("y" + year + "m" + month + "d" + day);
+            // Calendar calendar1 = Calendar.getInstance();
+            // System.out.println("y" + calendar1.get(Calendar.YEAR));
+            //
+            // String nowTime1 = "2021-12-14 06:00:00";
+            // Date nowTime1Date = simpleDateFormat1.parse(nowTime1);
+            //
+            // String time23 = "2021-12-14 05:00:00";
+            // Date parse23 = simpleDateFormat1.parse(time2);
+            //
+            // System.out.println(DateUtil.compareDay(nowTime1Date, parse23));
+            //
+            // Calendar calendar2 =Calendar.getInstance();
+            // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd E HH:mm");
+            // String dateStrNow = sdf.format(new Date());
+            // System.out.println(dateStrNow);
+            //
+            // Set<String> set = new HashSet<>();
+            // List<String> list = new ArrayList<>(set);
+            // System.out.println(list);
+            //
+            // boolean chinaPhoneLegal = CommonUtil.isChinaPhoneLegal("13507094150");
+            // System.out.println(chinaPhoneLegal);
+            //
+            // ArrayList arrayList = new ArrayList();
+            // System.out.println(arrayList instanceof  List);
+            //
+            // Map<String, String> map = new HashMap<>();
+            // map.put("1", "1");
+            // map.put("2", "3");
+            // Collection<String> values = map.values();
+            //
+            // List<String> valuesList = new ArrayList<>(values);
+            // System.out.println(valuesList);
+            //
+            //
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -223,7 +315,62 @@ public class MainTest {
         // system = system.replace("系统", "");
         // System.out.println(system);
 
+        // Date passwordExpireTime = DateUtil.getPasswordExpireTime(new Date(), 31536000000L);
+        // System.out.println(passwordExpireTime);
+        // Date date = new Date();
+        // SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
+        // String currentDay = sdf.format(date);
+        // System.out.println(currentDay);
+        // String lastNoticeNumber = "WBTZ" + "211130" + "09985";
+        // String currentNoticeNumber = lastNoticeNumber.substring(10);
+        // System.out.println(currentNoticeNumber);
+        // Long no = Long.parseLong(currentNoticeNumber);
+        // no = no + 1;
+        // String result = String.format("%09d", no);
+        // System.out.println(result);
+        // System.out.println(Long.MAX_VALUE);
+        //
+        // System.out.println();
+        //
+        // Map<String, String> map = new HashMap<>();
+        // map.put(null, null);
+        // System.out.println(map.get(null));
+        // StringBuffer stringBuffer = new StringBuffer();
+        //
+        // String s3 = "aaa";
+        // String s2 = "bbb";
+        // test3(s3, s2);
+        // System.out.println(s3 + "====" + s2);
+        //
+        // StringBuffer sb4 = new StringBuffer("aaa");
+        // StringBuffer sb5 = new StringBuffer("bbb");
+        // test2(sb4, sb5);
+        // System.out.println(sb4.toString() + "===" + sb5.toString());
+        //
+        // String duShu = "";
+        // String yuZhi = "";
+        // String message = "当前数值过高\t当前读数：40.10，阈值：介于10.0-40.0";
+        // if(message.contains("当前读数：") && message.contains("，阈值")){
+        //     duShu = message.substring(message.indexOf("当前读数：") + 5, message.indexOf("，"));
+        //     if(message.contains("阈值：")){
+        //         yuZhi = message.substring(message.indexOf("阈值：") + 3);
+        //     }
+        // }
+        // System.out.println("读数为：" + duShu);
+        // System.out.println("阈值为：" + yuZhi);
+        //
+        //
 
+
+    }
+
+    public static void test2(StringBuffer sb1, StringBuffer sb2){
+        sb1.append(sb2);
+        sb2 = sb1;
+    }
+
+    public static void test3(String s1, String s2){
+        s2 = s1;
     }
 
     private static List<String> getAllAlarmPointNumber(List<String> alarmPointList, Set<String> newAlarmPointNums) {

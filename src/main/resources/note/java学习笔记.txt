@@ -1,0 +1,21 @@
+
+Spring IOC 容器的初始化过程：
+1. 先申明一个早期的应用程序监听器；
+2. 资源定位过程中创建了环境对象configurableEnvironment，包含了JVM的profile配置信息、环境变量、JAVA进程变量、而且还创建了PropertyResolver、ProperplaceholderHelper对象来替换配置文件中的SPEL的值；
+之后主要有一个refresh方法，
+	prepaareRefresh():此方法完成一些基础的准备工作，例如设置时间、设置启动关闭标志、检查环境变量、并提供子类扩展，用来属性注入到ApplicationContext中、设置事件监听器集合
+	
+
+
+Spring中用到了哪些设计模式？
+代理模式 - 在AOP中用的比较多
+单例模式 - 在spring配置文件中定义的bean默认为单例模式
+模板方法 - 用来解决代码重复问题，比如：RestTemplate，JmsTemplate，JpaTemplate。
+工厂模式 - BeanFactory用来创建对象的实例
+适配器 - spring aop
+装饰器 - spring data hashmapper
+观察者 - spring 事件驱动模型
+回调 - spring aware回调接口
+
+BeanFactory和FactoryBean的区别？
+BeanFactory是个Fa

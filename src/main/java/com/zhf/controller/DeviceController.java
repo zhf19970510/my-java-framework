@@ -3,10 +3,14 @@ package com.zhf.controller;
 import com.zhf.entity.Device;
 import com.zhf.entity.base.BaseResult;
 import com.zhf.service.DeviceService;
+import com.zhf.vo.req.ParameterReq;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -49,6 +53,19 @@ public class DeviceController {
     @RequestMapping("/deleteLog")
     public BaseResult<String> deleteLog(){
         deviceService.deleteLog();
+        return new BaseResult<>();
+    }
+
+    @ApiOperation("parameterGet")
+    @GetMapping("/parameterGet")
+    public BaseResult<String> parameterGet(@RequestParam(value = "arg1") String arg1, @RequestParam(value = "arg2") String arg2){
+        System.out.println("参数为：" + arg1 + "," + arg2);
+        return new BaseResult<>();
+    }
+
+    @ApiOperation("parameterGetByMapAnnotation")
+    @GetMapping("/parameterGetByMapAnnotation")
+    public BaseResult<String> parameterGetByMapAnnotation(ParameterReq parameterReq){
         return new BaseResult<>();
     }
 }

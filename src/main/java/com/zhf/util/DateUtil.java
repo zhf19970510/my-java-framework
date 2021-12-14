@@ -188,4 +188,30 @@ public class DateUtil {
         now.set(Calendar.SECOND, now.get(Calendar.SECOND) - sec);
         return now.getTime();
     }
+
+    /**
+     * 通过修改时间和密码有效期，获取对应的密码过期时间
+     * @param updateTime        修改时间
+     * @param expireDuration    密码有效期长
+     * @return                  密码过期时间
+     */
+    public static Date getPasswordExpireTime(Date updateTime, Long expireDuration){
+        updateTime = new Date();
+        Long endTime = updateTime.getTime() + expireDuration;
+        Date dateEnd = new Date(endTime);
+        return dateEnd;
+    }
+
+    /**
+     *
+     * @param date1     日期1
+     * @param date2     日期2
+     * @return          日期1在日期2后面返回true
+     */
+    public static boolean compareDay(Date date1, Date date2){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date1Str = sdf.format(date1);
+        String date2Str = sdf.format(date2);
+        return date1Str.compareTo(date2Str) >= 0;
+    }
 }
