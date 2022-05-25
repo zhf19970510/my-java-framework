@@ -1,6 +1,10 @@
 package com.zhf.entity;
 
+import com.zhf.constant.CommonConstant;
+import com.zhf.entity.base.BaseEntity;
 import lombok.Data;
+import lombok.ToString;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author: 曾鸿发
@@ -8,11 +12,16 @@ import lombok.Data;
  * @description：
  **/
 @Data
-public class Person {
+public class Person implements BaseEntity {
 
     private Integer id;
 
     private String name;
 
     private Integer age;
+
+    @Override
+    public String getBussinessKey() {
+        return id + CommonConstant.splitter + (StringUtils.isBlank(name) ? "" : name);
+    }
 }

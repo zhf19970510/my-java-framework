@@ -1,16 +1,12 @@
-import com.alibaba.druid.sql.visitor.functions.Now;
-import com.zhf.entity.Person;
 import com.zhf.entity.User;
-import com.zhf.factory.MyFactoryBean;
-import com.zhf.util.CommonUtil;
 import com.zhf.util.DateUtil;
 import com.zhf.util.PasswordUtil;
-import com.zhf.util.SpringUtil;
 import org.apache.commons.lang3.time.DateUtils;
-import org.springframework.context.ApplicationContext;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -361,7 +357,43 @@ public class MainTest {
         //
         //
 
+        List<String> list = new ArrayList<>();
+        list.add("aaa");
+        list.add("");
+        list.add("bbb");
+        // list = list.stream().filter(t->!StringUtils.isBlank(t)).collect(Collectors.toList());
+        // System.out.println(list);
 
+        String[] strings = list.toArray(new String[]{});
+        System.out.println("===================");
+        for(String s2: strings){
+            System.out.println(s2);
+        }
+        System.out.println("=================");
+
+        String str = "US:";
+        String[] strs = str.split(":");
+        System.out.println(strs.length);
+
+        testList(list);
+        System.out.println("*****************");
+        for (String s2: list){
+            System.out.println(s2);
+        }
+
+        System.out.println("*****************");
+        System.out.println("java.lang.String1".getClass());
+
+        LocalDate date = LocalDate.of(2022, 9, 1);
+
+        System.out.println(DateUtil.getDays(LocalDate.now(), date));
+
+
+        System.out.println(3889.12 * 12);
+    }
+
+    public static void testList(List<String> list){
+        list.add("zhf");
     }
 
     public static void test2(StringBuffer sb1, StringBuffer sb2){
@@ -377,6 +409,8 @@ public class MainTest {
         HashSet<String> pointNumSet = new HashSet<>();
         pointNumSet.addAll(alarmPointList);
         pointNumSet.addAll(newAlarmPointNums);
+
+
         return new ArrayList<>(pointNumSet);
     }
 }

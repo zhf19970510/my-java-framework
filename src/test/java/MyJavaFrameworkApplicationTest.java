@@ -11,22 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MyJavaFrameworkApplication.class)
 public class MyJavaFrameworkApplicationTest {
-    //
-    // @Autowired
-    // private MyBeanPostProcessor myBeanPostProcessor;
-    //
-    // // @Test
-    // public void test1(){
-    //
-    //     ApplicationContext applicationContext = SpringUtil.getApplicationContext();
-    //
-    //     MyFactoryBean myFactoryBean = applicationContext.getBean(MyFactoryBean.class);
-    //     try {
-    //         Person object = myFactoryBean.getObject();
-    //         System.out.println(object);
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    // }
+
+
 
 }

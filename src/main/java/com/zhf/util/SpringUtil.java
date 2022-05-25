@@ -5,6 +5,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Component
 public class SpringUtil implements ApplicationContextAware {
 
@@ -37,4 +39,7 @@ public class SpringUtil implements ApplicationContextAware {
         return getApplicationContext().getBean(name, clazz);
     }
 
+    public static <T> Map<String, T> getBeanOfBaseType(Class<T> clazz){
+        return getApplicationContext().getBeansOfType(clazz);
+    }
 }
