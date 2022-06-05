@@ -75,7 +75,6 @@ public class OperateCsvUtil {
         Map<Integer, Field> indexFieldMap = getIndexFieldMap(fieldNameToCsvMap, headerNameIndexMap, cls);
         while (csvReader.readRecord()) {
             T t = cls.newInstance();
-
             for (int i = 0; i < headerCount; i++) {
                 String columnData = csvReader.get(i);
                 if (columnData == null) {

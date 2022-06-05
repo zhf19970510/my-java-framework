@@ -28,6 +28,8 @@ public class TimeoutServiceImpl implements TimeoutService {
         // System.out.println("开始执行优先方案！");
         logger.info("开始执行优先方案！");
 
+        logger.error("{0}", "hello");
+
         List<List<String>> ret = new ArrayList<>();
 
         for (int i = 1; i < 30; i++) {

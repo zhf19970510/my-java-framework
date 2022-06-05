@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: 曾鸿发
@@ -44,5 +46,8 @@ public class ParsingConfigTest {
 
         System.out.println(bigDecimal1.compareTo(upper) <= 0);
         System.out.println(bigDecimal1.compareTo(lower) >= 0);
+
+        List<Object> list = new ArrayList<>();
+
     }
 }
