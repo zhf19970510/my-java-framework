@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhf.dao.mail.MailListMapper">
+  <resultMap id="BaseResultMap" type="com.zhf.entity.model.mail.MailList">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mail_address" jdbcType="VARCHAR" property="mailAddress" />
+    <result column="receiver_type" jdbcType="VARCHAR" property="receiverType" />
+    <result column="receiver_type2" jdbcType="VARCHAR" property="receiverType2" />
+    <result column="receiver_type3" jdbcType="VARCHAR" property="receiverType3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mail_address, receiver_type, receiver_type2, receiver_type3
+  </sql>
+
+  <select id="selectMailListByReceiverType" resultType="java.lang.String">
+    select mail_address from mail_list
+    where receiver_type = #{receiverType}
+    <if test="receiverType2 != null">
+      and receiveType2 = #{receiveType2}
+    </if>
+    <if test="receiveType3 != null">
+      and receiveType3 = #{receiveType3}
+    </if>
+  </select>
+
+</mapper>

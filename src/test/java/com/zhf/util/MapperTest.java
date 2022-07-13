@@ -93,56 +93,65 @@ public class MapperTest {
         personDO.setAge(26);
         personDO.setBirthday(new Date());
         personDO.setId(1);
-        MapperTest mapperTest = new MapperTest();
-        mapperTest.mappingByCglibBeanCopier(personDO, 100);
-        mapperTest.mappingByCglibBeanCopier(personDO, 100000);
-        mapperTest.mappingByCglibBeanCopier(personDO, 1000000);
-        mapperTest.mappingByCglibBeanCopier(personDO, 10000000);
-        mapperTest.mappingByCglibBeanCopier(personDO, 100000000);
 
-        System.out.println("======================");
-        mapperTest.mappingBySpringBeanUtils(personDO, 100);
-        mapperTest.mappingBySpringBeanUtils(personDO, 100000);
-        mapperTest.mappingBySpringBeanUtils(personDO, 1000000);
-        mapperTest.mappingBySpringBeanUtils(personDO, 10000000);
-        mapperTest.mappingBySpringBeanUtils(personDO, 100000000);
-
-        System.out.println("======================");
+        PersonDTO personDTO = new PersonDTO();
+        BeanCopierUtil.copy(personDO, personDTO);
+        System.out.println(personDTO);
+        PersonDTO personDTO1 = new PersonDTO();
+        BeanCopierUtil.copy(personDO, personDTO1);
+        System.out.println(personDTO1);
 
 
-        mapperTest.mappingByCglibBeanCopier(personDO, 100);
-        mapperTest.mappingByCglibBeanCopier(personDO, 100000);
-        mapperTest.mappingByCglibBeanCopier(personDO, 1000000);
-        mapperTest.mappingByCglibBeanCopier(personDO, 10000000);
-        mapperTest.mappingByCglibBeanCopier(personDO, 100000000);
-
-        System.out.println("======================");
-
-
-        mapperTest.mappingByApachePropertyUtils(personDO, 100);
-        mapperTest.mappingByApachePropertyUtils(personDO, 100000);
-        mapperTest.mappingByApachePropertyUtils(personDO, 1000000);
-        mapperTest.mappingByApachePropertyUtils(personDO, 10000000);
-        mapperTest.mappingByApachePropertyUtils(personDO, 100000000);
-
-        System.out.println("======================");
-
-
-        mapperTest.mappingByApacheBeanUtils(personDO, 100);
-        mapperTest.mappingByApacheBeanUtils(personDO, 100000);
-        mapperTest.mappingByApacheBeanUtils(personDO, 1000000);
-        mapperTest.mappingByApacheBeanUtils(personDO, 10000000);
-        mapperTest.mappingByApacheBeanUtils(personDO, 100000000);
-
-        System.out.println("======================");
-
-        mapperTest.mappingByDozer(personDO, 100);
-        mapperTest.mappingByDozer(personDO, 100000);
-        mapperTest.mappingByDozer(personDO, 1000000);
-        mapperTest.mappingByDozer(personDO, 10000000);
-        mapperTest.mappingByDozer(personDO, 100000000);
-
-        System.out.println("======================");
+        // MapperTest mapperTest = new MapperTest();
+        // mapperTest.mappingByCglibBeanCopier(personDO, 100);
+        // mapperTest.mappingByCglibBeanCopier(personDO, 100000);
+        // mapperTest.mappingByCglibBeanCopier(personDO, 1000000);
+        // mapperTest.mappingByCglibBeanCopier(personDO, 10000000);
+        // mapperTest.mappingByCglibBeanCopier(personDO, 100000000);
+        //
+        // System.out.println("======================");
+        // mapperTest.mappingBySpringBeanUtils(personDO, 100);
+        // mapperTest.mappingBySpringBeanUtils(personDO, 100000);
+        // mapperTest.mappingBySpringBeanUtils(personDO, 1000000);
+        // mapperTest.mappingBySpringBeanUtils(personDO, 10000000);
+        // mapperTest.mappingBySpringBeanUtils(personDO, 100000000);
+        //
+        // System.out.println("======================");
+        //
+        //
+        // mapperTest.mappingByCglibBeanCopier(personDO, 100);
+        // mapperTest.mappingByCglibBeanCopier(personDO, 100000);
+        // mapperTest.mappingByCglibBeanCopier(personDO, 1000000);
+        // mapperTest.mappingByCglibBeanCopier(personDO, 10000000);
+        // mapperTest.mappingByCglibBeanCopier(personDO, 100000000);
+        //
+        // System.out.println("======================");
+        //
+        //
+        // mapperTest.mappingByApachePropertyUtils(personDO, 100);
+        // mapperTest.mappingByApachePropertyUtils(personDO, 100000);
+        // mapperTest.mappingByApachePropertyUtils(personDO, 1000000);
+        // mapperTest.mappingByApachePropertyUtils(personDO, 10000000);
+        // mapperTest.mappingByApachePropertyUtils(personDO, 100000000);
+        //
+        // System.out.println("======================");
+        //
+        //
+        // mapperTest.mappingByApacheBeanUtils(personDO, 100);
+        // mapperTest.mappingByApacheBeanUtils(personDO, 100000);
+        // mapperTest.mappingByApacheBeanUtils(personDO, 1000000);
+        // mapperTest.mappingByApacheBeanUtils(personDO, 10000000);
+        // mapperTest.mappingByApacheBeanUtils(personDO, 100000000);
+        //
+        // System.out.println("======================");
+        //
+        // mapperTest.mappingByDozer(personDO, 100);
+        // mapperTest.mappingByDozer(personDO, 100000);
+        // mapperTest.mappingByDozer(personDO, 1000000);
+        // mapperTest.mappingByDozer(personDO, 10000000);
+        // mapperTest.mappingByDozer(personDO, 100000000);
+        //
+        // System.out.println("======================");
 
     }
 }

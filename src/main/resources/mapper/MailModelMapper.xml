@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhf.dao.mail.MailModelMapper">
+  <resultMap id="BaseResultMap" type="com.zhf.entity.model.mail.MailModel">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="model_type" jdbcType="INTEGER" property="modelType" />
+    <result column="model_name" jdbcType="VARCHAR" property="modelName" />
+    <result column="ch_subject" jdbcType="VARCHAR" property="chSubject" />
+    <result column="en_subject" jdbcType="VARCHAR" property="enSubject" />
+    <result column="ch" jdbcType="VARCHAR" property="ch" />
+    <result column="en" jdbcType="VARCHAR" property="en" />
+    <result column="modified_date" jdbcType="VARCHAR" property="modifiedDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, model_type, model_name, ch_subject, en_subject, ch, en, modified_date
+  </sql>
+
+  <select id="queryMailModelByType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from mail_model
+    where model_type = #{modelType, jdbcType=INTEGER}
+  </select>
+
+</mapper>

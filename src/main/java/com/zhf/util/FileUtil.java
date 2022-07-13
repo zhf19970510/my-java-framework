@@ -135,7 +135,7 @@ public class FileUtil {
         }
     }
 
-    public String getFileName(String fullPath) {
+    public static String getFileName(String fullPath) {
         if (fullPath == null) {
             return null;
         } else {

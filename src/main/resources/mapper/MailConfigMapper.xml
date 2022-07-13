@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhf.dao.mail.MailConfigMapper">
+  <resultMap id="BaseResultMap" type="com.zhf.entity.model.mail.MailConfig">
+    <id column="mail_code" jdbcType="INTEGER" property="mailCode" />
+    <result column="mail_name" jdbcType="VARCHAR" property="mailName" />
+    <result column="mail_address" jdbcType="VARCHAR" property="mailAddress" />
+    <result column="mail_username" jdbcType="VARCHAR" property="mailUsername" />
+    <result column="mail_password" jdbcType="VARCHAR" property="mailPassword" />
+    <result column="environment" jdbcType="VARCHAR" property="environment" />
+    <result column="mail_host" jdbcType="VARCHAR" property="mailHost" />
+    <result column="mail_port" jdbcType="VARCHAR" property="mailPort" />
+    <result column="mail_protocol" jdbcType="VARCHAR" property="mailProtocol" />
+    <result column="mail_auth" jdbcType="VARCHAR" property="mailAuth" />
+    <result column="valid" jdbcType="CHAR" property="valid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    mail_code, mail_name, mail_address, mail_username, mail_password, environment, mail_host, 
+    mail_port, mail_protocol, mail_auth, `valid`
+  </sql>
+
+  <select id="selectMailConfig" resultMap="BaseResultMap">
+    select * from mail_config limit 1
+  </select>
+
+</mapper>

@@ -45,15 +45,22 @@ public class MainTest3 {
             System.out.println(integerStringEntry.getKey() + " " + integerStringEntry.getValue());
         }
 
-        for (Map.Entry<Integer, String> integerStringEntry : map.entrySet()) {
-            if(integerStringEntry.getKey() == 2){
-                map.remove(2);
-            }
-        }
+        // for (Map.Entry<Integer, String> integerStringEntry : map.entrySet()) {
+        //     if(integerStringEntry.getKey() == 2){
+        //         map.remove(2);
+        //     }
+        // }
 
         for (Map.Entry<Integer, String> integerStringEntry : map.entrySet()) {
             System.out.println(integerStringEntry.getKey() + " " + integerStringEntry.getValue());
         }
+
+        {
+            String s3 = "12345\0aaa";
+            System.out.println(s3);
+        }
+
+        System.out.println("\\0");
     }
 
 
