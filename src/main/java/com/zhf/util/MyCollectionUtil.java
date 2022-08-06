@@ -76,7 +76,7 @@ public class MyCollectionUtil {
     public static <T> List<T> pageList(List<T> list, int start, int size){
         int beginIndex = (start - 1) * size;
         if(beginIndex < 0) beginIndex = 0;
-        int toIndex = (start * size > list.size()) ? list.size() : start * size;
+        int toIndex = Math.min(start * size, list.size());
         if(beginIndex > toIndex){
             log.error(String.format("Error begin index %d and toIndex %d", beginIndex, toIndex));
             throw new ServiceException("begin index should be less than to index");
