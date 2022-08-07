@@ -40,3 +40,5 @@ mybatis-plus:
     map-underscore-to-camel-case: true
   mapper-locations: classpath*:mapper/*Mapper.xml
   type-aliases-package: com.zhf.entity
+
+closeScheduleJob: true
