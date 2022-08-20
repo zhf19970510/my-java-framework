@@ -153,4 +153,22 @@ public class MyBeanUtils {
             }
         }
     }
+
+    public static List<Field> getFieldWithAnnotation(Class bo, Class<? extends java.lang.annotation.Annotation> annotation) {
+
+        Field[] fieldList = bo.getDeclaredFields();
+        List<Field> fields = new ArrayList<>();
+        for(Field field : fieldList) {
+            if(field.getAnnotation(annotation) != null) {
+                fields.add(field);
+            }
+        }
+        fieldList = bo.getSuperclass().getDeclaredFields();
+        for(Field field : fieldList) {
+            if(field.getAnnotation(annotation) != null) {
+                fields.add(field);
+            }
+        }
+        return fields;
+    }
 }

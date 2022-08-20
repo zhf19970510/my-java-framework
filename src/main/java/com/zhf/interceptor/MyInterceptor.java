@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class MyInterceptor implements HandlerInterceptor {
 
     /**
-     * 在处理器具体的方法之前开始执行
+     * 在处理器具体的方法之前开始执行，eg: 比如可以将请求中的Header中的session信息保存在session中
      * @param request
      * @param response
      * @param handler
@@ -41,5 +41,7 @@ public class MyInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         System.out.println(this.getClass().getName() + "-----afterCompletion");
+        System.out.println(handler);
+        System.out.println(handler.getClass());
     }
 }
