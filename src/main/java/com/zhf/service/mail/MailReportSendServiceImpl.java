@@ -45,7 +45,7 @@ public class MailReportSendServiceImpl implements MailReportSendService {
     public static final Configuration FREEMARKER_CFG;
 
     static {
-        FREEMARKER_CFG = new Configuration(Configuration.VERSION_2_3_23);
+        FREEMARKER_CFG = new Configuration(Configuration.VERSION_2_3_31);
         FREEMARKER_CFG.setDefaultEncoding("UTF-8");
         FREEMARKER_CFG.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     }
