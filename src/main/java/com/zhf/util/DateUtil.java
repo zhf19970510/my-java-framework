@@ -237,7 +237,7 @@ public class DateUtil {
         return localDate;
     }
 
-    public static LocalDate dateToLocalDate2(Date date){
+    public static LocalDate dateToLocalDate2(Date date) {
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).toLocalDate();
     }
 
@@ -351,18 +351,30 @@ public class DateUtil {
         }
     }
 
-    public static String parseDateTimeGmt(String time, String zoneId){
+    public static String parseDateTimeGmt(String time, String zoneId) {
         // 例如：20220316 06:17:39.00.000000 +0000
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HH:mm:ss.SSSSSS Z");
-        try{
+        try {
             // 1. 先转换为中国时区时间
             Date date = sdf.parse(time);
             SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd");
             TimeZone timeZone = TimeZone.getTimeZone(zoneId);
             sdf2.setTimeZone(timeZone);
             return sdf2.format(date);
-        }catch (Exception e){
+        } catch (Exception e) {
             return "error";
         }
+    }
+
+    /**
+     * 判断 美国纽约 当前是否属于夏令时
+     *
+     * @return
+     */
+    public static boolean inDaylightTime(Date date) {
+//        Set<String> availableZoneIds = ZoneId.getAvailableZoneIds();
+//        System.out.println(availableZoneIds);
+        TimeZone tz = TimeZone.getTimeZone("America/New_York");
+        return tz.inDaylightTime(date);
     }
 }

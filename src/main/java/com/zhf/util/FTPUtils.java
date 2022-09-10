@@ -1,5 +1,6 @@
 package com.zhf.util;
 
+import cn.hutool.core.lang.Snowflake;
 import com.zhf.util.FTPProperty.models;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPClientConfig;
@@ -28,7 +29,7 @@ public class FTPUtils {
 
     public static FTPClient getFTPClient(FTPProperty property) {
         FTPClient ftpClient = null;
-
+//        Snowflake snowflake = new Snowflake();
         try {
             ftpClient = new FTPClient();
             ftpClient.setDefaultTimeout(300000);

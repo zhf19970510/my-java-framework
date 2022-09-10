@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * @author: 曾鸿发
  * @create: 2022-06-13 13:28
- * @description： 发送异常邮件
+ * @description： 发送异常邮件，也可以参考：hutool 里面的 MailUtil ： cn.hutool.extra.mail.MailUtil
  **/
 public interface MailReportSendService {
 
