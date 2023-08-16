@@ -18,4 +18,21 @@ Spring中用到了哪些设计模式？
 回调 - spring aware回调接口
 
 BeanFactory和FactoryBean的区别？
-BeanFactory是个Fa
+BeanFactory 和 FactoryBean 是 Spring 框架中两个重要的接口，它们的作用和使用场景略有不同：
+
+BeanFactory：
+BeanFactory 是 Spring 框架中的核心接口，是 IoC（控制反转）的基本实现。它定义了容器如何管理和访问 bean 对象。BeanFactory 提供了获取 bean 实例、依赖注入、生命周期管理等基本功能，是 Spring 容器的基础。
+BeanFactory 是一个工厂模式的实现，通过配置文件或注解等方式指定需要创建的 bean 的类型和属性，然后由 BeanFactory 负责实例化和管理这些对象。在运行时，根据需要通过 BeanFactory 获取特定的 bean 实例。
+
+FactoryBean：
+FactoryBean 是一个特殊的 bean，实现了 FactoryBean 接口的类在 Spring 容器中也会被当作一个 bean 进行管理。FactoryBean 接口定义了一种高级的 bean 创建方式，允许用户自定义 bean 的创建逻辑。
+实现 FactoryBean 接口的类称为 FactoryBean 实现类，它需要实现接口中的两个方法：getObject() 和 getObjectType()。getObject() 方法负责创建和返回实际的 bean 对象，而 getObjectType() 方法则返回该 bean 的类型。
+
+FactoryBean 在 Spring 容器中被使用时，会通过调用 getObject() 方法创建 bean 实例，并将实例放入容器中。因此，从容器获取该 FactoryBean 的实例，实际上获得的是 getObject() 方法返回的实际 bean 实例。
+
+总结：
+
+BeanFactory 是 Spring 框架中的核心接口，用于管理和访问 bean 实例。
+FactoryBean 是一种特殊的 bean，实现了 FactoryBean 接口，可以自定义 bean 的创建逻辑。
+BeanFactory 是用于管理 bean 的工厂，而 FactoryBean 是用于创建和管理 bean 对象的一种机制。
+

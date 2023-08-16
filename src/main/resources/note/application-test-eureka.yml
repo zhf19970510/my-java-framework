@@ -1,0 +1,12 @@
+eureka:
+  server:
+    # 自我保护
+    enable-self-preservation: false
+    # 自我保护阈值
+    renewal-percent-threshold: 0.05
+    # 剔除服务时间间隔
+    eviction-interval-timer-in-ms: 1000
+    # 关闭从readonly读注册表
+    use-read-only-response-cache: false
+    # readwrite 和 readonly 同步时间间隔
+    response-cache-update-interval-ms: 1000
