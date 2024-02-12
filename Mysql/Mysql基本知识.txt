@@ -211,3 +211,138 @@ insert into teacher value(7, '周老师', 'Netty'); -- 插入不进去
 没有外力，无法推进。
 
 show variables like 'innodb_status_output_locks'; -- 默认为OFF
+
+
+
+
+Mysql8
+性能很好，全内存的访问，200W QPS
+账户与安全：
+5.7 5.6 一句话实现用户的创建授权语句。
+8. 分开执行
+8以下：
+grant all privileges on *.* to 'lijin1'@'%' identified by 'Lijin@2022';
+8以上：
+create user 'lijin1'@'%' identified by 'Lijin@2022';
+grant all privileges on *.* to 'lijin1'@'%';
+
+认证插件和更新：
+5.7 mysql_native_password
+8   caching_sha2_password
+show variables like 'default_authentication%';  默认8的插件为：caching_sha2_password
+可以通过MySQL的服务端找到my.cnf的文件，把相关参数进行修改（不过要MySQL重启才能生效）
+
+修改密码：
+5.7及之前修改密码，重复进行设置 123456-》123456 不允许。
+8.0之后允许
+这个修改密码也是通过参数控制的
+show variables like 'password%'; 有一个参数password_history，如果为0，则可以修改为原来的密码
+alter user 'lijin'@'%' identified by 'Linjin@2022';
+set persist password_history=3; -- 表示修改的密码不能和最近的3次一致
+
+
+索引增强：
+1. 隐藏索引
+    不会被优化器使用，不可见索引。会用到？
+    1. 软删除（老版本index删除（误删）->创建 都会消耗性能，变成隐藏索引。。。过段时间，发现真的没必要再彻底删除）
+    2. 灰度发布*（线上测试，加隐藏索引）通过一些设置，在查询优化器执行SQL,修改一些设置，把索引生效（针对你的测试），发现这个索引没有问题，改成正式的索引，生产环境生效。
+
+    创建隐藏索引：
+    create index j_idx on t1(j) invisible;
+
+    查看索引：
+    show index from t1\G;
+    select @@optimizer_switch\G; -- 通过该sql可以看到user_invisible_indexes=off
+    set session optimizer_switch=“user_invisible_indexes=on”;
+
+    测试隐藏索引：
+    explain select * from t1 where j = 1;
+
+    测试好之后：
+    alter table t1 alter index j_idx visible;
+
+    创建一个删除一个索引开销不小
+    设置不可见可见开销很小。
+
+2. 降序索引
+    create table t2(c1 int, c2 int, index idx1(c1 asc, c2 desc));
+    show create table t2\G;
+
+    默认group by 8.0 之后不会进行排序，必须显示地加上order by 子句
+
+3. 函数索引
+    原则：不要在索引列上用函数，会导致索引失效。
+    create index idx_c2 on t3((UPPER(c2)));
+
+通用表表达式： cte common table expression with 子句
+    with recursive cte(n) as
+    (
+        select 1
+          union all
+        select n + 1 from cte where n < 10
+    )
+    select * from cte;
+
+    案例2：
+    with recursive staff_view(id,name,m_id) as
+    (
+    select id, name, cast(id as char(200))
+    from staff where m_id = 0
+    union all
+    select s2.id, s2.name, concat(s1.m_id, '-', s2.id)
+    from staff_view as s1 join staff as s2
+    on s1.id = s2.m_id
+    )
+    select * from staff_view order by id;
+
+窗口函数：
+    分析函数
+    select
+    year,
+    country,
+    product,
+    sum,
+    sum(sum) over(partition by country) as country_sum
+from
+    sales
+order by
+    country,
+    year,
+    product,
+    sum;
+
+    示例2：
+        select
+        year,
+        country,
+        product,
+        sum,
+        sum(sum) over(partition by country order by sum rows unbounded preceding) as country_sum
+    from
+        sales
+    order by
+        country,
+        year,
+        product,
+        sum;
+
+    普通函数：
+    sum、avg、count、max、min
+    专用函数：
+    序号函数：ROW_NUMBER()、RANK()、DENSE_RANK()
+    分布函数：PERCENT_RANK()、CUME_DIST()
+    前后函数：LAG()、LEAD()
+    头尾函数：FIRST_VALUE()、LAST_VALUE()
+    其它函数：NTH_VALUE()、NTILE()
+
+    原子DDL操作：
+    drop、create、alter
+    8.0之前不是原子性的操作
+
+JSON的支持，只做了解，因为有MongoDB对JSON支持更好。
+
+自增列持久化：
+    Mysql5.7以及早期版本，InnoDB自增列计数器(AUTO_INCREMENT) 的值只存储在内存中，Mysql8.0每次变化时将自增计数器的最大值写入redo log。
+
+死锁检查控制：
+    Mysql8.0增加了一个新的变量控制，用于控制系统是否执行InnoDB死锁检查。
