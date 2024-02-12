@@ -1,0 +1,134 @@
+针对高并发场景，计数器的设计方案？
+在数据库表中加入一个slot字段，更新表数据的时候可以使用
+update count_s set count = count+1 where id = 1 and slot = 1;
+update count_s set count = count+1 where id = 1 and slot = 2;
+update count_s set count = count+1 where id = 1 and slot = 3;
+然后在往表中更新计数的时候，可以使用hash算法，随意往一条记录中更新count数，这样可以尽可能地减少互斥锁带来的性能影响
+
+oracle数据库使用的是B*树数据结构。
+
+辅助索引/二级索引
+叶子节点除了包含键值以外，每个叶子节点中的索引行中还包含一个书签(bookmark)
+    (每个索引一颗B+树，不包含行记录的全部数据）
+
+回表：
+通过辅助索引获得主键，然后再通过主键索引（聚集索引）来找到一个完整的行记录。
+
+覆盖索引：
+从辅助索引中就可以得到查询的记录，而不需要查询聚集索引中的记录。
+
+innodb_adaptive_hash_index来考虑是禁用或启动此特性，默认AHI为开启状态。
+
+索引列的选择性/离散性：不重复的索引值和数据表的记录总数（N）的比值（范围1/N到1）
+越高则查询效率越高。
+
+前缀索引：
+针对blob、text、很长的varchar字段，mysql不支持索引他们的全部长度，需建立前缀索引。
+语法：alter table tableName add key/index(column(X))
+前缀索引的选择（X）：
+缺点：无法应用于order by和group by，也无法做覆盖索引
+
+后缀索引：
+mysql不支持后缀索引。
+可以通过在表中添加一个新列，用于保存要被建立后缀索引的字段倒排值，然后建立前缀索引。
+场景：查询邮箱后缀。
+
+只为搜索、排序或分组的列创建索引。
+
+多列索引：
+将选择性最高的列放在索引最前列。
+根据那些运行频率最高地查询来调整索引列的顺序。
+优化性能时，需要使用相同的列但顺序不同的索引来满足不同类型的查询需求。
+
+三星索引：
+对于一个查询而言，三星索引可能是其最好的索引。
+满足的条件如下：
+索引将相关的记录放到一起则获得一星。
+如果索引中的数据顺序和查找中的排列顺序一致则获得二星（排序星）
+如果索引中的列包含了查询中需要的全部列则获得三星（宽索引星）。
+
+慢查询-优化数据访问
+请求了不需要的数据：
+查询不需要的记录
+总是取出全部列
+重复查询相同的数据
+
+SQL查询：
+响应时间：服务时间+排队时间
+
+优化方向：
+1. 使用覆盖索引
+2. 数据库表结构，统计汇总信息（汇总表）。
+3. 重写复杂的SQL。
+
+慢查询配置：
+mysql记录所有执行超过long_query_time参数设定的时间阈值的SQL语句的日志。
+show variables like 'slow_query_log';       // 可以查看慢查询日志开关是否开启
+修改开关：
+set global slow_query_log=1;
+
+// 慢日志存放目录查看
+show variables like '%slow_query_log_file%';
+
+// 如果有SQL语句没有使用到索引，也要记录到慢查询日志，可以查看并且打开开关，默认是关闭的
+show variables like '%log_queries_not_using_indexes%';
+
+mysqldumpslow命令：
+mysqldumpslow -s(c,t,l,r,at) slow.log
+
+执行计划：
+type:执行计划的一条记录就代表着MySQL对某个表的执行查询时的访问方法/访问类型，其中的type列就表明了这个访问方法/访问类型是个什么东西，是较为重要的一个指标，结果值从最好到最坏依次是：
+system > const > eq_ref > ref > fulltext > ref_or_null > index_merge > unique_subquery > index_subquery > range >index > ALL
+出现较多的是 system > const > eq_ref > ref > range > index > ALL
+一般来说，得保证查询至少达到range级别，最好能达到ref。
+
+高性能的索引使用策略：
+1. 不在索引列上做任何操作：a.表达式 b.函数
+2. 尽量全值匹配
+3. 最佳左前缀法则
+4. 范围条件放最后
+    左边的列是精确查找，则右边的列可进行范围查找
+    中间有范围查询会导致后面的列全部失效，无法充分利用联合索引。
+
+5. 覆盖索引尽量用
+    尽量不要使用*
+6. 不等于要慎用
+    使用不等于(!=或者<>)的时候无法使用索引会导致全表扫描
+
+7. Null/Not有影响
+8. 字符类型加引号
+9. like 模糊查询尽量使用后模糊匹配
+10. 使用or关键字时要注意：
+    尽量不要使用*
+11. 排序要当心
+    asc、dssc别混用
+    排序列包含非同一个索引的列会导致不能使用索引
+12. 尽可能按主键顺序插入行
+13. 优化count查询
+14. 优化limit分页
+15. 关于Null的特别说明
+
+
+隐式提交：
+一些特殊的语句可以实现自动提交，也就是隐式提交，
+begin; start transaction;
+一些其他的语句，（不是commit, 不是rollback），自动提交了， -- 隐式提交
+a. DDL语句；create、alter、drop、
+
+b. 事务控制或关于锁定的语句：
+比如：
+begin;
+begin;
+第二个begin会将前一个begin开启的事务提交
+
+c. 加载数据的语句：
+比如我们使用load data语句来批量往数据库中导入数据时，也会隐式的提交前边语句所属的事务。
+
+d. 关于MySQL复制的一些语句：
+使用START SLAVE、STOP SLAVE、RESET SLAVE、CHANGE MASTER TO等也会隐式的提交前边语句所属的事务。
+
+使用READ COMMITED隔离级别的事务在每次查询开始时都会生成一个独立的ReadView。但是解决不了不可重复读问题。
+
+REPEATABLE READ - 在第一次读取数据的时候生成一个ReadView
+对于使用REPEATABLE READ 隔离级别的事务来说，只会在第一次执行查询语句时生成一个ReadView，之后的查询就不会重复生成了。
+
