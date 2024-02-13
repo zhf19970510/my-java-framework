@@ -383,3 +383,34 @@ show variables like 'datadir';
 
 查看错误文件日志：
 show variables like 'log_error'\G;
+
+MySQL中的系统库：
+information_schema  存储的 元数据
+
+
+performance_schema: 运行在比较低的级别的 用于监控MySQL 运行过程中 资源消耗。
+采集的东西比较底层：磁盘文件、表I/O锁等等。
+监控实现：事件的方式。
+维度：活跃事件、历史事件。
+性能事件的数据的表：
+events_statements_current
+events_statements_histogram_by_digest
+events_statements_histogram_global
+events_statements_history
+events_statements_history_long
+events_statements_summary_by_account_by_event_name
+events_statements_summary_by_digest
+events_statements_summary_by_host_by_event_name
+events_statements_summary_by_program
+events_statements_summary_by_thread_by_event_name
+events_statements_summary_by_user_by_event_name
+
+select * from INFORMATION_SCHEMA.ENGINES;
+可以查看information_schema是否开启。
+
+可以通过下面的语句打开语句或者事务的监控：
+update setup_instruments set enables='yes',timed='yes' where name like 'transaction%';
+update setup_consumers set enabled = 'yes' where name like 'transaction%';
+
+
+select * from events_statements_history;
