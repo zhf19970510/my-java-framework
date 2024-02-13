@@ -346,3 +346,40 @@ JSON的支持，只做了解，因为有MongoDB对JSON支持更好。
 
 死锁检查控制：
     Mysql8.0增加了一个新的变量控制，用于控制系统是否执行InnoDB死锁检查。
+
+MySQL体系架构：
+show variables like '%max_connections'; -- 显示MySQL的连接最大数
+
+缓存：
+show variables like '%query_cache_type%';
+
+存储引擎：
+分形树（数据结构）：写优化的 索引的数据结构。读的性能接近B+树。写入》b+树。
+思想：节点的MessageBuffer的缓存更新操作，数据的局部性的原理，随机写转换顺序写。(Kafka RocketMQ 顺序写)
+
+alter table mytable ENGINE=InnoDB;
+
+查看Mysql支持哪些存储引擎：
+show engines;
+
+查看默认的存储引擎：
+show variables like '%storage_engine%';
+
+MySQL中的目录和文件：
+寻找配置文件命令：
+mysql --help | grep my.cnf
+
+查看日志文件是否打开：
+show variables like 'log_bin';
+
+查看数据存放目录：
+show variables like 'datadir';
+
+常见的日志文件：
+1、错误日志
+2、慢查询日志
+3、普通查询日志（查询日志）
+4、二进制文件
+
+查看错误文件日志：
+show variables like 'log_error'\G;
