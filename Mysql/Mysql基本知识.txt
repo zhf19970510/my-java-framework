@@ -568,3 +568,31 @@ LRU
 
 全表扫描的数据进Buffer Pool的困境
 划分区域的LRU的链表，old区域和young区域，old区域占37%
+
+事务底层与高可用原理：
+两个日志：
+redo log:确保事务的持久性
+undo log:保证食物的原子性
+
+MySQL的事务实现机制：WAL(write ahead logging)
+
+redoLog日志格式 type    space ID    page Number     offset      data
+简单的日志类型（MLOG_8BYTE)
+
+row_id(隐藏)
+1、内存中维护一个全局变量（插入表数据，+1）
+2、这个变量为256倍数，变量的值 刷新到 系统表空间 页号是7，页中（Max row id）属性。对这个页面的修改以redo日志保存起来（MLOG_8BYTE).
+
+崩溃后的恢复为什么不用binlog？
+1、这两者使用方式不一样
+binlog会记录表所有更改操作，包括更新删除数据，更改表结构等等，主要用于人工恢复数据，而redo log对于我们是不可见的，它是InnoDB用于保证crash-safe能力的，也就是在事务提交后MySQL崩溃的话，可以保证事务的持久性，即事务提交后其更改是永久性的。
+一句话概括：binlog是用作人工恢复数据，redo log是MySQL自己使用，用于保证在数据崩溃时的事务持久性。
+2、redo log是InnoDB引擎特有的，binlog是MySQL的server层实现的，所有引擎都可以使用。
+3、redo log是物理日志，binlog是逻辑日志
+4、redo log是“循环写”的日志文件，binlog是追加日志
+
+undo log - 删除记录
+undo log正常记录链表中的最后一条记录的delete_mask值被设置为1，但是并没有被加入到垃圾链表。也就是此时记录处于一个中间状态。在删除语句所在的事务提交之前，被删除的记录一直都处于这种所谓的中间状态。
+为啥会有这种奇怪的中间状态呢？其实主要是为了实现MVCC中的事务隔离级别。
+
+undo log 主要用于 rollback，保证事务的原子性

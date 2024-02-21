@@ -13,4 +13,8 @@ public class MyNumberUtil {
         }
         return percent;
     }
+
+    public static long getADivideBAndMultiplyC(Long a, Long b, Long c) {
+        return ((Double) (1.0 * a / b * c)).longValue();
+    }
 }
