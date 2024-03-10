@@ -596,3 +596,17 @@ undo log正常记录链表中的最后一条记录的delete_mask值被设置为1
 为啥会有这种奇怪的中间状态呢？其实主要是为了实现MVCC中的事务隔离级别。
 
 undo log 主要用于 rollback，保证事务的原子性
+
+MySQL8新特性底层原理：
+快速加列语法：
+alter table table1 add column c1 int, algorithm=instant;
+快速加列限制：
+只能在表的最后
+不能添加主键列
+不支持压缩的表格式
+
+如何提高insert的性能？
+a）批量插入
+b）修改参数bulk_insert_buffer_size，调大批量插入的缓存
+c）设置innodb_flush_log_at_trx_commit=2   redolog 日志刷盘时机
+
