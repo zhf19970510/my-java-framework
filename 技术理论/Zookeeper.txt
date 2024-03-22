@@ -1,0 +1,71 @@
+Zookeeper：解决分布式系统协调问题
+服务配置中心：配置改变后可以快速通知客户端
+注册中心
+主从协调
+分布式锁
+
+节点可以分为四大类：
+PERSISTENT 持久化节点
+EPHEMERAL 临时节点：-e
+PERSISTENT_SEQUENTIAL 持久化顺序节点：-s
+EPHEMERAL_SEQUENTIAL 临时顺序节点：-es
+远程连接zk server
+zkCli.sh -server 127.0.0.1:2181
+
+delete /app2  # 如果下级有节点不允许删除
+deleteall /app2     # 不管下级有没有节点都删除
+
+ls -R / 递归查看下级节点
+
+临时节点：在会话结束之后，会自动删除掉
+
+查询节点的详细信息：
+ls / -s
+
+什么是分布式锁？
+    线程锁：给方法或者代码块加锁
+    分布式锁：分布式锁是在分布式或者集群环境下，多进程可见，并且互斥的锁
+
+实现分布式锁的方案   （加锁------> 执行业务逻辑 ------->释放锁)
+    基于数据库实现分布式锁
+    基于Redis实现分布式锁
+    基于Zookeeper实现分布式锁
+
+分布式锁的设计原则：
+    互斥：在任何的给定的时刻，只有一个客户端可以持有锁
+    无死锁：一个线程已经获取到锁，那么它可以多次获取，不会发生死锁
+    容错性：如果一个线程获取了锁，即使出现崩溃或者连接断开，锁也必须被释放
+
+分布式锁还要考虑的其他部分：
+    加锁解锁的同源性：A加的锁，不能被B解锁
+    获取锁时非阻塞的：如果获取不到锁不能等待
+    锁失效机制：同容错性
+    可重入：一个线程可以多次获取同一个分布式锁，不会出现死锁
+    高性能：加锁解锁，一定要是高性能
+    高可用：避免单点故障
+
+基于Mysql实现分布式锁：
+基于Mysql实现分布式锁，适用于对性能要求不高，并且不希望因为要使用分布式锁而引入新组件。可以利用唯一键索引不能重复插入的特点实现。
+
+create table `database_lock` {
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `resource` INT NOT NULL COMMENT '锁资源',
+    `description` varchar(1024) NOT NULL DEFAULT "" COMMENT '描述',
+    PRIMARY KEY(`id`),
+    UNIQUE KEY `resource`(`resource`)
+} ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT="数据库分布式表";
+
+
+paxos算法：
+从申请到决议的过程
+
+paxos根据编号加上了一条规则：
+Acceptor如果还没有正式通过提案，则可以接受编号更大的提案的请求
+
+ZAB协议崩溃恢复需要满足以下2个请求：
+    确保已经被Leader提交的proposal必须最终被所有的Follower服务器提交
+    确保丢弃已经被Leader提出的但没有被提交的Proposal
+
+崩溃恢复需要满足两点要求：
+已经处理过的消息不能丢失
+被丢弃的消息不能复现
