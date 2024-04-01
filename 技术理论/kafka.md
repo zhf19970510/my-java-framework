@@ -51,11 +51,11 @@ kafka的消费全流程：
         4）发起已经提交的消费者偏移量的请求（ACK确认）
         5）主动的发起离组请求
 
-    当一个消费者加入分组 （组协调器、消费者协调器 干的哪些事情）：
-    1. 消费客户端 启动、重连 （JoinGroup 请求 -> 组协调器）
-    2. 客户端已经完成JoinGroup，客户端（消费者协调器）再次向组协调器发起SyncGroup（同步组），获取新的分配方案
-    3. 客户端关机、异常，触发 离组
-    4. 客户端加入组之后（一直保持心跳）max.poll.interval.ms
+​    当一个消费者加入分组 （组协调器、消费者协调器 干的哪些事情）：
+​    1. 消费客户端 启动、重连 （JoinGroup 请求 -> 组协调器）
+​    2. 客户端已经完成JoinGroup，客户端（消费者协调器）再次向组协调器发起SyncGroup（同步组），获取新的分配方案
+​    3. 客户端关机、异常，触发 离组
+​    4. 客户端加入组之后（一直保持心跳）max.poll.interval.ms
 
 分区再均衡：
     重写再均衡协调器，参考自己写的kafka-review中的HandlerRebalance，重写onPartitionsRevoked和onPartitionsAssigned，记录消息偏移量的位置
@@ -222,7 +222,6 @@ message.max.bytes:表示一个服务器能够接收处理的最大字节数，�
 （消费者能读取的最大消息，这个值应该大于或等于message.max.bytes)。该值默认值是1000000字节，大概900KB~1MB。这个值的大小对性能影响很大，值越大，网络和IO
 时间越长，还会增加磁盘写入的大小。
 
-
 发送者通过sender发送消息：网络通信
 在kafka生产者发送消息，主线程是先把消息交给RecordAccumulator，通过append方法进行追加的，
 append方法里头有一个while(true)，accumulator可以理解为一个缓冲
@@ -232,4 +231,166 @@ append方法里头有一个while(true)，accumulator可以理解为一个缓冲
 重要的核心代码：
 Deque<ProducerBatch> dq = topicInfo.batches.computeIfAbsent(effectivePartition, k -> new ArrayDeque());
 
-后面的代码转入到kafka.md中，如果有截图也好放入。
+![image-20240330204920415](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403302049089.png)
+
+这句代码中：topicInfo来自topicInfoMap
+
+TopicInfo topicInfo = topicInfoMap.computeIfAbsent(topic, k -> new TopicInfo(logContext, k, batchSize));
+
+topicInfoMap定义如下：
+
+private final ConcurrentMap<String, /\*topic\*/,TopicInfo> topicInfoMap = new CopyOnWriteMap<>();
+
+1)发送消息转跳到 缓冲的实现Accumulator
+
+![image-20240330205609327](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403302056991.png)
+
+2)一条消息进入一个queue（Deque），进入tryAppend方法（加了sync锁）
+
+![image-20240330205641543](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403302056111.png)
+
+sender线程发送消息：
+
+![image-20240330212457472](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403302125078.png)
+
+Sender线程触发的时机是怎么样的？
+
+3）消息发送的时机：达到阈值(batch.size, linger.ms)
+
+![image-20240330213349100](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403302133630.png)
+
+对应下图：
+
+![image-20240330213804412](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403302138455.png)
+
+因为Sender继承Runnable，所以主要看对应的run方法： 
+
+![image-20240330214443425](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403302144310.png)
+
+updateNodeLangecyStats(Integer nodeId, long nowMs, boolean canDrain): 把相关的数据放入nodeStats，修改节点状态
+
+nodeStats是一个Map，它的定义如下：
+
+private final ConcurrentMap<Integer, /\*nodeId\*/, NodeLangecyStats> nodeStats = new CopyOnWriteMap<>();
+
+重头戏？
+
+从accumulator拉去消息ProducerBatch
+
+addToInFlightRequest():
+
+![image-20240331054416842](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403310544193.png)
+
+封装消息，并封装请求，使用client发送消息
+
+![](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403310545988.png)
+
+![image-20240331055910718](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403310559985.png)
+
+![image-20240331060347750](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403310603282.png)
+
+![image-20240331060444725](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403310604873.png)
+
+NIO三大核心组件：
+
+Selector
+
+Channel
+
+buffer缓冲区
+
+![image-20240331091944844](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403310919094.png)
+
+kafka中的select模型：
+
+![image-20240331100103933](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403311001483.png)
+
+NetworkClient.ready() -> selector.connect()
+
+这个方法里面最终会初始化selector连接：
+
+![image-20240331101418591](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403311014174.png)
+
+Selector参数有哪些？
+
+nioSelector
+
+Map<String, KafkaChannel> channels
+
+Selector中比较重要的参数：
+
+// Java NIO中用来监听网络I/O事件的Selector
+
+private final java.nio.channels.Selector nioSelector;
+
+// 通道 方便管理
+
+private final Map<String, KafkaChannel> channels;
+
+// 已经发送完成的send集合
+
+private final List<NetworkSend> completedSends;
+
+// 已经接收完成的send集合
+
+private final LinkedHashMap<String, NetworkReceive> completedReceives;
+
+// 立刻连接的key的集合
+
+private final Set<SelectionKey> immediatelyConnectedKeys;
+
+// 关闭连接的节点集合
+private final Map<String, ChannelState> disconnected;
+
+// 连接成功的节点集合
+
+private final List<String> connected;
+
+// 用来构造 KafkaChannel 的工具类
+
+private final ChannelBuilder channelBuilder;
+
+// 可以接收的最大数据量大小
+
+private final int maxReceiveSize;
+
+// 空闲超时到期的管理类
+
+private final IdleExpiryManager idleExpiryManager;
+
+// 用来管理byteBuffer的内存池
+
+private final MemoryPool memoryPool;
+
+//indicates if the previous call to poll was able to make progress in reading already-buffered data.
+//this is used to prevent tight loops when memory is not available to read any more data
+private boolean madeReadProgressLastPoll = true;
+
+![image-20240331104150875](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403311041824.png)
+
+![image-20240331104814842](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403311048830.png)
+
+发送代码：发送数据的核心
+
+![image-20240331111700387](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403311117667.png)
+
+![image-20240331112011765](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403311120014.png)
+
+selector中的poll方法才是真正地进行消息的发送，可以看到Sender的run方法，Sender是一个Runnable，run方法最后调用了Selector中的poll方法
+
+Sender.run() -> runOnce() -> client.poll() -> selector.poll()
+
+![image-20240331113231910](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403311132710.png)
+
+通过poll方法点进去，可以看到真正处理过消息发送和网络通信的是下面的方法方法：
+
+![image-20240331142321134](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202403311423891.png)
+
+上述方法核心就是对各种事件进行处理。
+
+1. connect事件，TCP握手
+2. Read 接收响应
+3. write 发送消息
+4. 这个方法最终会调用到write方法：channel.write()；才是真正的发送
+
+![image-20240401194235709](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202404011942249.png)
