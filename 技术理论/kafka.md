@@ -394,3 +394,79 @@ Sender.run() -> runOnce() -> client.poll() -> selector.poll()
 4. 这个方法最终会调用到write方法：channel.write()；才是真正的发送
 
 ![image-20240401194235709](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202404011942249.png)
+
+流计算应用场景：
+
+1. 日志分析（访问量）
+2. 大屏看板 统计（双十一 1个小时 销售量 达到 xx 亿）
+3. 公共交通（公交车、地铁）
+
+
+
+时间轮：
+
+jdk的 任务插入\删除 平均时间复杂度O(log(n))
+
+时间轮的实现 --- 任务插入\删除 平均时间复杂度O(1)。--- 满足高性能的要求。
+
+时间轮的应用：Netty、Quartz、Zookeeper
+
+1. kafka中如何确保消息的可靠性的传输？
+
+   1）消费端弄丢了数据，因为kafka自动提交偏移量，走手动提交
+
+   2）kafka自身弄丢了。解决方案：集群架构（多副本）。
+
+   3）生产的时候，重试 + 多副本机制
+
+2. 如何实现kafka的高性能？
+
+   1）分区----partition ---- kafka的并发度
+
+   一个topic可以有多个partition
+
+   消费者 并发数量 和 partition有关系
+
+   生产的角度：不同的partition可以位于不同机器，不同的磁盘。
+
+   2）kafka 运行在linux --- 文件读写 --- I/O
+
+   充分利用PageCache
+
+   内核的参数
+
+   vm.dirty background bytes =0
+
+   vm.dirty background ratio =10
+
+   --- 如果追求性能，避免大的阻塞。适当的调整小，5（把大的IO 刷盘 变成多个小的IO操作）
+
+   --- 内存很大，磁盘性能很差
+
+   vm.dirty ratio = 30
+
+   建议适当调大。50
+
+   vm.dirty bytes=0
+
+   vm.dirty_expire centisecs =3000
+
+   建议适当调小
+
+   vm.dirty writeback centisecs = 500
+
+   建议适当调小
+
+   3）减少网络的开销--批处理
+
+   send 缓冲 + 批处理
+
+   4）压缩----配置。除了单条压缩，批量发送时，整个batch压缩 传输。
+
+   （压缩比：重复的数据越多，msg {id, name, xxx}）压缩效果也好
+
+   Broker接收到了压缩消息之后，并不是直接解压了，消息以压缩后的形式直接持久化到磁盘。consumer --- fetch时再解压。
+
+   5）高效的序列化。
+
+   Avro、ProtoBuffer高效的序列化的工具。
