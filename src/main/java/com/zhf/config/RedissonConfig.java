@@ -3,14 +3,13 @@ package com.zhf.config;
 import org.redisson.Redisson;
 import org.redisson.config.Config;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * @author: 曾鸿发
  * @create: 2022-06-01 16:15
  * @description：
  **/
-@Configuration
+//@Configuration
 public class RedissonConfig {
 
     @Bean
