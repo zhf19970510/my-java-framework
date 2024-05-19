@@ -3,6 +3,7 @@ import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.PropertyAccessorFactory;
+import org.springframework.http.MediaType;
 import org.springframework.util.ClassUtils;
 
 /**
@@ -25,6 +26,10 @@ public class MainTest2 {
         BeanWrapper beanWrapper = PropertyAccessorFactory.forBeanPropertyAccess(employee);
         beanWrapper.setPropertyValue("empNo", "111");
         System.out.println(employee);
+
+        // MediaType
+//        MediaType.
+//        BeanUtils.isSimpleValueType()
 //        ClassUtils.getAllInterfacesForClassAsSet()
     }
 
