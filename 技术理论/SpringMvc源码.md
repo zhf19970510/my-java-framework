@@ -220,9 +220,54 @@ invokeInitMethod -> afterPropertiesSet
 
 
 
+异步处理：
+
+WebAsyncManager
+
+AsyncWebRequest
+
+![image-20240525075624310](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/20240525075632.png)
+
+![image-20240525081718439](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/20240525081718.png)
 
 
-可以加一些额外的表 维护流程实例、任务和人的关系。
 
-抄送的人没有操作权限。
+WebAsyncUtils
 
+
+
+SpringMvc怎么用异步的？
+
+获取WebAsyncManager对象，设置拦截器：RequestBindingInterceptor
+
+![image-20240525213400802](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/20240525213400.png)
+
+![image-20240525213641406](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/20240525213641.png)
+
+![image-20240525214108379](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/20240525214108.png)
+
+使用案例：
+
+![image-20240526065328025](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/20240526065328.png)
+
+
+
+总结：
+
+![image-20240526074307059](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/20240526074307.png)
+
+![image-20240526080521357](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/20240526080521.png)
+
+![image-20240526081430604](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/20240526081430.png)
+
+![image-20240526083911862](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/20240526083912.png)
+
+![image-20240526084718265](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/20240526084718.png)
+
+![image-20240526154042209](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/20240526154042.png)
+
+![image-20240526162207168](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/20240526162207.png)
+
+准备工作做好之后，开始接收请求：
+
+![image-20240526164843587](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/20240526164843.png)
