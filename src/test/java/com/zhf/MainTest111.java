@@ -21,5 +21,11 @@ public class MainTest111 {
             System.out.println(integer);
         }
         System.out.println(list.get(5));
+
+        System.out.println("=============================");
+        int[] arr1 = new int[0];
+        System.out.println(arr1);
+        System.out.println(arr1.length);
+        System.out.println("=================");
     }
 }
