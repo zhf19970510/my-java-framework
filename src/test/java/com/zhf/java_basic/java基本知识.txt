@@ -1,0 +1,725 @@
+
+下面有关值类型和引用类型描述正确的是（）？
+A. 值类型的变量赋值只是进行数据复制，创建一个同值的新对象，而引用类型变量赋值，仅仅是把对象的引用的指针赋值给变量，使它们共用一个内存地址。
+B. 值类型数据是在栈上分配内存空间，它的变量直接包含变量的实例，使用效率相对较高。而引用类型数据是分配在堆上，引用类型的变量通常包含一个指向实例的指针，变量通过指针来引用实例。
+C. 引用类型一般都具有继承性，但是值类型一般都是封装的，因此值类型不能作为其他任何类型的基类。
+D. 值类型变量的作用域主要是在栈上分配内存空间内，而引用类型变量作用域主要在分配的堆上。
+正确答案：ABC
+值类型变量：
+
+值类型的变量（如整数、浮点数、布尔值等）确实通常在栈上分配内存空间。这意味着，当你声明一个值类型的变量时，它会直接存储在当前执行环境的栈内存中，而不是堆内存中。
+引用类型变量：
+
+引用类型的变量（如对象、数组等）存储的是引用（或指针），该引用指向堆内存中的实际数据。这意味着，引用类型的变量本身可能会存储在栈上（或者对象的部分数据可能会存储在栈上），但是对象的实际数据（即对象的内容）存储在堆上。
+作用域：
+
+作用域并不是由变量的存储位置（栈或堆）决定的。作用域是指变量在代码中可访问的范围。无论是值类型还是引用类型，它们的作用域都由它们在代码中的声明位置决定，并不受存储位置的影响。
+综上所述，要修正原始说法：
+
+值类型变量通常在栈上分配内存。
+引用类型变量本身（或引用）可能在栈上或堆上分配内存，但对象的实际数据通常在堆上。
+
+作用域与内存分配位置之间并没有直接的关系，作用域仅仅与变量的声明和可见性有关。
+
+
+
+
+下列哪些方法是针对循环优化进行的
+A. 强度削弱
+B. 删除归纳变量
+C. 删除多余运算
+D. 代码外提
+正确答案：ABD
+常见的代码优化技术有：复写传播，删除死代码, 强度削弱，归纳变量删除. 多余运算在编译期就会自动优化
+
+
+
+5. 下列代码输出结果为（      ）
+class Animal{
+    public void move(){
+        System.out.println("动物可以移动");
+    }
+}
+class Dog extends Animal{
+    public void move(){
+        System.out.println("狗可以跑和走");
+    }
+    public void bark(){
+        System.out.println("狗可以吠叫");
+    }
+}
+public class TestDog{
+    public static void main(String args[]){
+        Animal a = new Animal();
+        Animal b = new Dog();
+        a.move();
+        b.move();
+        b.bark();
+    }
+}
+A. 动物可以移动
+   狗可以跑和走
+   狗可以吠叫
+B. 动物可以移动
+   动物可以移动
+   狗可以吠叫
+C. 运行错误
+D. 编译错误
+编译看左边，运行看右边。  父类型引用指向子类型对象，无法调用只在子类型里定义的方法
+
+
+
+关于多线程和多进程，下面描述正确的是（）：
+A. 多进程里，子进程可获得父进程的所有堆和栈的数据；而线程会与同进程的其他线程共享数据，拥有自己的栈空间。
+B. 线程因为有自己的独立栈空间且共享数据，所有执行的开销相对较大，同时不利于资源管理和保护。
+C. 线程的通信速度更快，切换更快，因为他们在同一地址空间内。
+D. 一个线程可以属于多个进程。
+正确答案：AC
+同一个进程下的多个线程之间可以共享数据，因此开销较小。
+
+
+
+下面有关 JAVA 异常类的描述,说法正确的有()
+A. 异常的继承结构:基类为 Throwable,Error 和 Exception 。实现 Throwable, RuntimeException 和 IOException 等继承 Exception
+B. 非 RuntimeException 一般是外部错误(不考虑Error的情况下),其可以在当前类被 try{}catch 语句块所捕获
+C. Error 类体系描述了 Java 运行系统中的内部错误以及资源耗尽的情形,Error 不需要捕捉
+D. RuntimeException 体系包括错误的类型转换、数组越界访问和试图访问空指针等等,必须 被 try{}catch 语句块所捕获
+正确答案：ABC
+D选项 错误的原因：说一个简单的例子：在我们用myeclipse或eclipse开发时
+  非运行时异常 总是在我们写的时候就会出错 提醒我们try catch  或throw
+  但是运行时异常检查不出来，只有运行时才会出错，所以也不需try catch
+
+
+在使用super和this关键字时，以下描述错误的是（）
+A. 在子类构造方法中使用super()显示调用父类的构造方法，super()必须写在子类构造方法的第一行，否则编译不通过
+B. super()和this()不一定要放在构造方法内第一行
+C. this()和super()可以同时出现在一个构造函数中
+D. this()和super()可以在static环境中使用，包括static方法和static语句块
+正确答案：BCD
+官方解析：
+ A选项正确，B选项，super()必须在第一行的原因是: 子类是有可能访问父类对象的, 比如在构造函数中使用父类对象的成员函数和变量,
+ 在成员初始化使用了父类, 在代码块中使用了父类等等, 所以为保证在子类可以访问父类对象之前，一定要完成对父类对象的初始化。　　
+ 关于this()必须在第一行的原因，我们假设这样一种情况,，类B是类A的子类， 如果this()可以在构造函数的任意行使用,
+ 那么当程序运行到构造函数B()的第一行,发现没有调用this()和super()，那么就会自动在第一行补齐super() 来完成对父类对象的初始化,
+ 然后返回子类的构造函数继续执行, 当运行到构造函数B()的"this() ;"时, 调用B类对象的构造函数, 还会对父类对象再次初始化!，
+ 这就造成了资源的浪费，以及某些意想不到的错误。也正因如此C选项错误。
+D选项，无论是this()还是super()指的都是对象，而static环境中是无法使用非静态变量的。因此D选项错误。
+
+
+
+3. 下面代码的输出是什么？
+public class Base
+{
+    private String baseName = "base";
+    public Base()
+    {
+        callName();
+    }
+
+    public void callName()
+    {
+        System. out. println(baseName);
+    }
+
+    static class Sub extends Base
+    {
+        private String baseName = "sub";
+        public void callName()
+        {
+            System. out. println (baseName) ;
+        }
+    }
+    public static void main(String[] args)
+    {
+        Base b = new Sub();
+    }
+}
+
+A. null
+B. sub
+C. base
+正确答案：A
+答案：A  new Sub();在创造派生类的过程中首先创建基类对象，然后才能创建派生类。 创建基类即默认调用Base()方法，在方法中调用callName()方法，由于派生类中存在此方法，则被调用的callName（）方法是派生类中的方法，此时派生类还未构造，所以变量baseName的值为null
+1.首先，需要明白类的加载顺序。
+
+  (1) 父类静态代码块(包括静态初始化块，静态属性，但不包括静态方法)
+
+  (2) 子类静态代码块(包括静态初始化块，静态属性，但不包括静态方法
+  )
+
+
+   (3) 父类非静态代码块(
+  包括非静态初始化块，非静态属性
+  )
+
+
+   (4) 父类构造函数
+
+
+   (5) 子类非静态代码块
+  (
+  包括非静态初始化块，非静态属性
+  )
+
+
+   (6) 子类构造函数
+
+
+   其中：类中静态块按照声明顺序执行，并且(1)和(2)不需要调用new类实例的时候就执行了(意思就是在类加载到方法区的时候执行的)
+
+
+  2.其次，需要理解子类覆盖父类方法的问题，也就是方法重写实现多态问题。
+
+
+   Base b = new Sub();它为多态的一种表现形式，声明是Base,实现是Sub类，
+  理解为
+
+     b
+    编译时表现为Base类特性，运行时表现为Sub类特性。
+
+
+
+   当子类覆盖了父类的方法后，意思是父类的方法已经被重写，题中
+    父类初始化调用的方法为子类实现的方法，子类实现的方法中调用的baseName为子类中的私有属性。
+
+
+
+   由1.可知，此时只执行到步骤4.,子类非静态代码块和初始化步骤还没有到，子类中的baseName还没有被初始化。所以此时
+  baseName为空。
+  所以为null。
+
+ 在开发中使用泛型取代非泛型的数据类型（比如用ArrayList<String>取代ArrayList），程序的运行时性能会变得更好。（）
+ 正确答案：B
+ 泛型仅仅是java的语法糖，它不会影响java虚拟机生成的汇编代码，在编译阶段，虚拟机就会把泛型的类型擦除，还原成没有泛型的代码，顶多编译速度稍微慢一些，执行速度是完全没有什么区别的.
+
+
+
+ 下面有关java的instanceof、?、&、&&说法正确的有？
+ A. instanceof 可用来判断某个实例变量是否属于某种类的类型。
+ B. "?："  三目运算符
+ C. &在逻辑运算中是非短路逻辑与，在位运算中是按位与
+ D. && 逻辑运算：逻辑与
+
+
+ ResultSet中记录行的第一列索引为？
+ A. -1
+ B. 0
+ C. 1
+ D. 以上都不是
+ 正确答案：C
+
+
+ 以下关于final关键字说法错误的是（）
+A. final是java中的修饰符，可以修饰类、接口、抽象类、方法和属性
+B. final修饰的类肯定不能被继承
+C. final修饰的方法不能被重载
+D. final修饰的变量不允许被再次赋值
+正确答案：AC
+官方解析：
+ 被final关键字修饰的类不能被继承，但抽象类存在的意义在于被其它类继承然后实现其内部方法的，这样final和抽象类之间就产生了矛盾。因此，final并不能修饰抽象类，选项A错误，选项B正确。
+
+C选项，重载的实现是编译器根据函数的不同的参数表，对同名函数的名称做修饰，那么对于编译器而言，这些同名函数就成了不同的函数。但重写则是子类方法对父类的方法的延申，即子类不仅继承了父类的方法，还向父类的方法中添加了属于自己的内容，改变了父类方法原本的内容，而final代表了一种不可变，这明显与重写形成了冲突。因此被final修饰的类可以被重载但不能被重写，选项C错误。
+
+当final用来修饰变量时，代表该变量不可被改变，一旦获得了初始值，该final变量就不能被重新赋值，选项D正确。故答案为AC。
+
+
+下面关于面向对象的一些理解哪些是错误的(    )
+A. 面向对象的最重要的特性是支持继承、封装和多态
+B. 系统设计应该遵循开闭原则，系统应该稳定不可修改，但应支持通过继承、组合等方式进行扩展
+C. 函数式的语言必然是面向对象的语言
+D. 面向对象设计时，每个类的职责应该单一，不要再一个类中引入过多的接口
+E. 过程式语言和面向对象的语言各有其优势，过程式语言更加灵活，面向对象语言更加强调抽象和封装
+F. Java和C++都是静态类型的面向对象编程语言
+正确答案：C
+动态类型语言是指在运行期间才去做数据类型检查的语言，也就是说，在用动态类型的语言编程时，永远也不用给任何变量指定数据类型，该语言会在你第一次赋值给变量时，在内部将数据类型记录下来。静态类型语言与动态类型语言刚好相反，它的数据类型是在编译其间检查的，也就是说在写程序时要声明所有变量的数据类型，C/C++是静态类型语言的典型代表，其他的静态类型语言还有C#、JAVA等。
+
+
+
+Java数据库连接库JDBC用到哪种设计模式?
+A. 生成器
+B. 桥接模式
+C. 抽象工厂
+D. 单例模式
+正确答案：B
+JDBC提供两套接口，一个面向数据库厂商，一个面向JDBC使用者。
+
+
+
+下面有关java类加载器，说法正确的是？
+A. 引导类加载器（bootstrap class loader）：它用来加载 Java 的核心库，是用原生代码来实现的
+B. 扩展类加载器（extensions class loader）：它用来加载 Java 的扩展库。
+C. 系统类加载器（system class loader）：它根据 Java 应用的类路径（CLASSPATH）来加载 Java 类
+D. tomcat为每个App创建一个Loader，里面保存着此WebApp的ClassLoader。需要加载WebApp下的类时，就取出ClassLoader来使用
+正确答案：ABCD
+参考答案：jvm classLoader architecture : a、Bootstrap ClassLoader/启动类加载器 主要负责jdk_home/lib目录下的核心 api 或 -Xbootclasspath 选项指定的jar包装入工作. B、Extension ClassLoader/扩展类加载器 主要负责jdk_home/lib/ext目录下的jar包或 -Djava.ext.dirs 指定目录下的jar包装入工作 C、System ClassLoader/系统类加载器 主要负责java -classpath/-Djava.class.path所指的目录下的类与jar包装入工作. B、 User Custom ClassLoader/用户自定义类加载器(java.lang.ClassLoader的子类) 在程序运行期间, 通过java.lang.ClassLoader的子类动态加载class文件, 体现java动态实时类装入特性.
+
+
+
+如果希望监听TCP端口9000，服务器端应该怎样创建socket?
+A. new Socket("localhost",9000);
+B. new ServerSocket(9000);
+C. new Socket(9000);
+D. new ServerSocket("localhost",9000);
+正确答案：B
+  - 服务端：ServerSocket(port)，因为服务器知道自己的IP所以不需要输入IP
+
+  - 客户端：Socket(host,port)，因为客户端不知道连接哪条IP所以需要输入IP
+
+
+
+有以下一个对象：
+public class DataObject implements Serializable{
+    private static int i=0;
+    private String word=" ";
+    public void setWord(String word){
+        this.word=word;
+    }
+    public void setI(int i){
+        Data0bject.i=i;
+     }
+}
+创建一个如下方式的DataObject:
+DataObject object=new Data0bject ( );
+object.setWord("123");
+object.setI(2);
+将此对象序列化为文件，并在另外一个JVM中读取文件，进行反序列化，请问此时读出的Data0bject对象中的word和i的值分别为：
+A. "", 0
+B. "", 2
+C. "123", 2
+D. "123", 0
+正确答案：D
+这道题的答案应该是: D,序列化保存的是对象的状态，静态变量属于类的状态，因此，序列化并不保存静态变量。所以i是没有改变的
+
+
+阅读如下代码。 请问，对语句行 test.hello(). 描述正确的有（）
+package NowCoder;
+class Test {
+    public static void hello() {
+        System.out.println("hello");
+    }
+}
+public class MyApplication {
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        Test test=null;
+        test.hello();
+    }
+}
+A. 能编译通过，并正确运行
+B. 因为使用了未初始化的变量，所以不能编译通过
+C. 以错误的方式访问了静态方法
+D. 能编译通过，但因变量为null，不能正常运行
+正确答案：A
+很简单，静态方法属于静态绑定，编译器根据引用类型所属的静态类型为它绑定其对应的方法。此语句会翻译成invokestatic，该指令的调用中不会涉及this,所以不会依赖对象！ 还有引用类型=null，其实就是指该引用在堆中没有对应的对象，但是编译的时候还是能根据声明找到其所属的静态类型。
+
+
+下面代码的输出结果是什么？
+public class ZeroTest {
+    public static void main(String[] args) {
+     try{
+       int i = 100 / 0;
+       System.out.print(i);
+      }catch(Exception e){
+       System.out.print(1);
+       throw new RuntimeException();
+      }finally{
+       System.out.print(2);
+      }
+      System.out.print(3);
+     }
+ }
+ A. 3
+ B. 123
+ C. 1
+ D. 12
+ 正确答案：D
+ 还是需要理解Try...catch...finally与直接throw的区别：try catch是直接处理，处理完成之后程序继续往下执行，throw则是将异常抛给它的上一级处理，程序便不往下执行了。本题的catch语句块里面，打印完1之后，又抛出了一个RuntimeException，程序并没有处理它，而是直接抛出，因此执行完finally语句块之后，程序终止了
+
+
+
+Java语言中，下面哪个语句是创建数组的正确语句？(     )
+A. float f[][] = new float[6][6];
+B. float []f[] = new float[6][6];
+C. float f[][] = new float[][6];
+D. float [][]f = new float[6][6];
+E. float [][]f = new float[6][];
+正确答案：ABDE
+
+
+要使某个类能被同一个包中的其他类访问，但不能被这个包以外的类访问，可以( )
+A. 让该类不使用任何关键字
+B. 使用private关键字
+C. 使用protected关键字
+D. 使用void关键字
+正确答案：A
+        同一个类        同一个包        不同包的子类      不同包的非子类
+Private   √
+Default   √             √
+Protected √             √               √
+Public    √             √               √               √
+
+
+常用的servlet包的名称是？
+A. java.servlet
+B. javax.servlet
+C. servlet.http
+D. javax.servlet.http
+正确答案：BD
+
+
+5. 以下类型为Final类型的为（）
+A. HashMap
+B. StringBuffer
+C. String
+D. Hashtable
+正确答案：BC
+
+
+下面正确的2项是？
+A 运行的时候可能抛异常
+B 运行的时候可能没有输出，也没有正常退出
+C 代码运行的时候可能没有输出，但是正常退出
+D 代码输出"A B A B C C "
+E 代码输出"A B C A B C A B C "
+F 代码输出"A A A B C A B C C "
+G 代码输出"A B C A A B C A B C "
+正确答案：EG
+
+
+下列说法正确的是()
+A. WebLogic中开发消息Bean的non－persistent 方式可以保证消息的可靠
+B. EJB容器发生错误，non－persistent方式下JMS容器仍然会将消息发送
+C. EJB容器发生错误，persistent方式下JMS容器仍然会将消息发送
+D. EJB容器发生错误，两种方式下JMS容器仍会在MDB可用的时候将消息发送
+正确答案：C
+参考答案：选C。 weblogic中开发消息Bean时的persistent与non-persisten的差别： persistent方式的MDB可以保证消息传递的可靠性,也就是如果EJB容器出现问题而JMS服务器依然会将消息在此MDB可用的时候发送过来。 non－persistent方式的消息将被丢弃。
+
+
+
+有时为了避免某些未识别的异常抛给更高的上层应用，在某些接口实现中我们通常需要捕获编译运行期所有的异常， catch 下述哪个类的实例才能达到目的：（）
+A Error
+B Exception
+C RuntimeException
+D Throwable
+正确答案：B
+
+
+给定includel.isp文件代码片段，如下：
+  <% pageContext.setAttribute(“User”,”HAHA”);%>
+______ // 此处填写代码
+  给定include2.jsp文件代码片段如下：
+  <%=pageContext.getAttribute(“User”)%>
+  要求运行include1.jsp时，浏览器上输出：HAHA
+A <jsp:include page=”include2.jsp” flash=”true”>
+B <%@include file=”include2.jsp”%>
+C <jsp:forward page=”include2.jsp”>
+D <% response.sendRedirect(“include2.jsp”); %>
+正确答案：B
+参考答案：答案：B B选项是静态包含，相当于不include2.jsp页面内容拷贝到此处，因此可以输出User属性值 D选项是转发重定向，转发的时候pageContent内的属性值不能被传递，因此得不到User属性值
+  A选项使用了jsp中动作标签的包含标签，这里是动态包含。原理是包含与被包含的页面单独翻译成不同的java文件，然后运行时合并在一起。因为是存在域中的数据，故刚开始就直接翻译数据还不存在，因此浏览器上不能显示出HAHA。
+
+  B选项使用了jsp三大指令中的包含指令，这里是静态包含。原理是直接把包含与被包含页面的内容先合并在一起，然后翻译成一个java源文件，最后编译执行。故可以在浏览器上显示出HAHA。
+
+  C和D选项分别使用了跳转和重定向，我们知道jsp中有四个域对象，从小到大分别为：
+    page域：在同一个jsp页面中数据有效
+    request域：在同一个请求中数据有效
+    session域：在用一个会话中数据有效
+    application域：在同一个网站中数据有效
+ 题中使用的是page域对象：pageContext，而C选项应该使用request域对象：HttpServletRequest，而D选项应该至少使用session域对象：HttpSession（如果处于同一会话中）。
+
+
+默认值
+取值范围 示例 字节型 ： 0 -2^7—-2^7-1 byte b=10; 字符型 ： ‘ \u0000′ 0—-2^16-1         char c=’c’ ;
+short : 0 -2^15—-2^15-1 short s=10; int : 0 -2^31—-2^31-1 int i=10;
+long : 0 -2^63—-2^63-1     long o=10L; float : 0.0f -2^31—-2^31-1 float f=10.0F
+double : 0.0d -2^63—-2^63-1 double d=10.0; boolean: false true\false boolean flag=true;
+
+
+
+以下程序的运行结果是：(    )
+TreeSet<Integer> set = new TreeSet<Integer>();
+TreeSet<Integer> subSet = new TreeSet<Integer>();
+for(int i=606;i<613;i++){
+    if(i%2==0){
+     set.add(i);
+     }
+ }
+subSet = (TreeSet)set.subSet(608,true,611,true);
+set.add(609);
+System.out.println(set+" "+subSet);
+A 编译失败
+B 发生运行时异常
+C [606, 608, 609，610, 612] [608, 609，610]
+D [606, 608, 609，610, 612] [608, 610]
+正确答案：C
+这个出题应该是考subSet是否指向原数据
+  ，不过刚好测试用例出的不好。比如subList 得到的引用是指向原数据的，对subList修改会修改原List。
+  subSet也一样，和subList都是返回元数据结构的一个视图。
+
+
+
+存根（Stub）与以下哪种技术有关
+A 交换
+B 动态链接
+C 动态加载
+D 磁盘调度
+正确答案：B
+存根类是一个类，它实现了一个接口，它的作用是：如果一个接口有很多方法，如果要实现这个接口，就要实现所有的方法。但是一个类从业务来说，可能只需要其中一两个方法。如果直接去实现这个接口，除了实现所需的方法，还要实现其他所有的无关方法。而如果通过继承存根类就实现接口，就免去了这种麻烦。
+理解为适配器模式，继承该类则不需要实现一个接口全部方法。
+
+
+如何获取ServletContext设置的参数值？
+A context.getParameter()
+B context.getInitParameter()
+C context.getAttribute()
+D context.getRequestDispatcher()
+正确答案：B
+参数值和键值对还是要做一下区分的
+
+
+下面代码输出是？
+double d1=-0.5;
+System.out.println("Ceil d1="+Math.ceil(d1));
+System.out.println("floor d1="+Math.floor(d1));
+A Ceil d1=-0.0 floor d1=-1.0
+B Ceil d1=0.0 floor d1=-1.0
+C Ceil d1=-0.0 floor d1=-0.0
+D Ceil d1=0.0 floor d1=0.0
+E Ceil d1=0 floor d1=-1
+正确答案：A
+Math.ceil(d1)
+  ceil 方法上有这么一段注释：If the argument value is less than zero but
+    greater than -1.0, then the result  is negative zero
+  如果参数小于0且大于-1.0，结果为 -0
+Math.floor(d1)
+  ceil 和 floor 方法 上都有一句话：If the argument is NaN or an infinity
+    or positive zero or negative zero, then the result is the same as
+  the argument，意思为：如果参数是 NaN、无穷、正 0、负 0，那么结果与参数相同，
+  如果是 -0.0，那么其结果是 -0.0
+
+
+后端获取数据，向前端输出的过程中，输出前应该采用信息安全部发布的XSSFilter进行相应编码。
+
+
+下面的类哪些可以处理Unicode字符?
+A InputStreamReader
+B BufferedReader
+C Writer
+D PipedInputStream
+正确答案：ABC
+简单地说，字符流是字节流根据字节流所要求的编码集解析获得的
+可以理解为字符流=字节流+编码集
+所以本题中和字符流有关的类都拥有操作编码集(unicode)的能力。
+
+
+关于volatile关键字，下列描述不正确的是？
+A 用volatile修饰的变量，每次更新对其他线程都是立即可见的。
+B 对volatile变量的操作是原子性的。
+C 对volatile变量的操作不会造成阻塞。
+D 不依赖其他锁机制，多线程环境下的计数器可用volatile实现。
+正确答案：BD
+一旦一个共享变量（类的成员变量、类的静态成员变量）被volatile修饰之后，那么就具备了两层语义： 1）保证了不同线程对这个变量进行操作时的可见性，即一个线程修改了某个变量的值，这新值对其他线程来说是立即可见的。 2）禁止进行指令重排序。 volatile只提供了保证访问该变量时，每次都是从内存中读取最新值，并不会使用寄存器缓存该值——每次都会从内存中读取。 而对该变量的修改，volatile并不提供原子性的保证。 由于及时更新，很可能导致另一线程访问最新变量值，无法跳出循环的情况 多线程下计数器必须使用锁保护。
+
+
+
+下面有关java实例变量,局部变量,类变量和final变量的说法，错误的是？
+A 实例变量指的是类中定义的变量，即成员变量，如果没有初始化，会有默认值。
+B 局部变量指的是在方法中定义的变量，如果没有初始化，会有默认值
+C 类变量指的是用static修饰的属性
+D final变量指的是用final 修饰的变量
+正确答案：B
+  定义在类中的变量是类的成员变量，可以不进行初始化，Java会自动进行初始化，如果是引用类型默认初始化为null,如果是基本类型例如int则会默认初始化为0
+  局部变量是定义在方法中的变量，必须要进行初始化，没有初值是不能使用该变量，即使用时报错
+
+
+ 接口（interface）可以说成是抽象类的一种特例，接口中的所有方法都必须是抽象的。接口中的方法定义默认为public
+  abstract类型，接口中的成员变量类型默认为public static final。另外，接口和抽象类在方法上有区别：
+
+  1.抽象类可以有构造方法，接口中不能有构造方法。
+  2.抽象类中可以包含非抽象的普通方法，接口中的所有方法必须都是抽象的，不能有非抽象的普通方法。
+  3.抽象类中可以有普通成员变量，接口中没有普通成员变量
+  4. 抽象类中的抽象方法的访问类型可以是public，protected和默认类型
+  5. 抽象类中可以包含静态方法，接口中不能包含静态方法
+  6. 抽象类和接口中都可以包含静态成员变量，抽象类中的静态成员变量的访问类型可以任意，但接口中定义的变量只能是public
+  static final类型，并且默认即为public static final类型
+  7. 一个类可以实现多个接口，但只能继承一个抽象类。二者在应用方面也有一定的区别：接口更多的是在系统架构设计方法发挥作用，主要用于定义模块之间的通信契约。而抽象类在代码实现方面发挥作用，可以实现代码的重用，例如，模板方法设计模式是抽象类的一个典型应用，假设某个项目的所有Servlet类都要用相同的方式进行权限判断、记录访问日志和处理异常，那么就可以定义一个抽象的基类，让所有的Servlet都继承这个抽象基类，在抽象基类的service方法中完成权限判断、记录访问日志和处理异常的代码，在各个子类中只是完成各自的业务逻辑代码。
+
+有关会话跟踪技术描述正确的是（）
+A Cookie是Web服务器发送给客户端的一小段信息，客户端请求时，可以读取该信息发送到服务器端
+B 关闭浏览器意味着临时会话ID丢失，但所有与原会话关联的会话数据仍保留在服务器上，直至会话过期
+C 在禁用Cookie时可以使用URL重写技术跟踪会话
+D 隐藏表单域将字段添加到HTML表单并在客户端浏览器中显示
+
+
+对下面Spring声明式事务的配置含义的说明错误的是（）
+<bean id="txProxyTemplate" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+    <property name="transactionManager" ref="myTransactionManager" />
+    <property name="transactionAttributes">
+        <props>
+        <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+        <prop key="*">PROPAGATION_REQUIRED</prop></props>
+    </property>
+</bean>
+
+正确答案：C
+myTransactionManager bean被定义的时候会注入sessionFactory
+
+尝试编译以下程序会产生怎么样的结果？（）
+
+HashMap的键值是允许null值的，主要是为了提供更大的灵活性和编程便利性。在某些应用场景下，开发者可能需要使用 null 作为键来存储数据。
+而HashTable的jdk版本比较早，如果放入null值，调用的时候调用hashCode()方法进行hash索引，将报空指针异常。
+
+
+ Java语言是静态多分派，动态单分派的。
+  如果是重载方法之间的选择，则是使用静态类型。
+  如果是父类与子类之间的重写方法的选择，则是使用动态类型。
+  如A a = new B(); 会使用类型B去查找重写的方法，使用类型A去查找重载的方法。
+
+静态多分派（Static Multiple Dispatch）：它是指在编译阶段根据方法的参数类型和数量来决定调用哪个方法。在Java中，方法的重载就是一种静态多分派的体现。编译器在编译时根据调用的方法的参数类型来决定调用哪个重载方法。
+动态单分派（Dynamic Single Dispatch）：它是指在运行时根据调用者的实际类型来决定调用哪个方法。在Java中，方法的重写就是一种动态单分派的体现。在运行时，虚拟机会根据对象的实际类型来选择调用哪个重写方法。
+
+
+在一个基于分布式的游戏服务器系统中，不同的服务器之间，哪种通信方式是不可行的（）？
+A 管道
+B 消息队列
+C 高速缓存数据库
+D 套接字
+正确答案：A
+
+
+5. 实现或继承了Collection接口的是（）
+A Map
+B List
+C Vector
+D Iterator
+E Set
+正确答案：BCE
+Map接口未实现Collection接口
+B，List接口的定义为 public interface List<E>extends Collection<E>
+C，Vector定义为 public class Vector<E>extends AbstractList<E>implements List<E>, RandomAccess, Cloneable, Serializable
+Vector实现了List接口自然实现了Collection接口
+D，Iterator接口未实现Collection接口
+E， public interface Set<E>extends Collection<E> Set接口继承自Collection接口
+
+
+下面叙述哪个是正确的？（）
+A java中的集合类（如Vector）可以用来存储任何类型的对象，且大小可以自动调整。但需要事先知道所存储对象的类型，才能正常使用。
+B 在java中，我们可以用违例（Exception）来抛出一些并非错误的消息，但这样比直接从函数返回一个结果要更大的系统开销。
+C java接口包含函数声明和变量声明。
+D java中，子类不可以访问父类的私有成员和受保护的成员。
+正确答案：B
+我就说下B选项和C选项。
+B选项说的情况就是我们自定义异常的情况，请仔细读：我们可以用违例（Exception）来抛出一些并非错误的消息，可以，并非错误的消息。比如我自定义一个异常，若一个变量大于10就抛出一个异常，这样就对应了B选项说的情况，我用抛出异常说明这个变量大于10，而不是用一个函数体（函数体内判断是否大于10，然后返回true或false）判断，因为函数调用是入栈出栈，栈是在寄存器之下的速度最快，且占的空间少，而自定义异常是存在堆中，肯定异常的内存开销大！所以B对。
+C选项说的是接口包含方法声明和变量声明。因为接口中方法默认是
+    abstract public,所以在接口只写函数声明是符合语法规则。但是变量默认是用public
+    final static 修饰的，意思它是静态常量，常量不管在接口中还是类中必须在声明时初始化！所以C的后半句是错的，必须在声明时并给出初始化！
+
+
+
+下列Java代码中的变量a、b、c分别在内存的____存储区存放。
+class A {
+    private String a = “aa”;
+    public boolean methodB() {
+        String b = “bb”;
+        final String c = “cc”;
+    }
+}
+A 堆区、堆区、堆区
+B 堆区、栈区、堆区
+C 堆区、栈区、栈区
+D 堆区、堆区、栈区
+E 静态区、栈区、堆区
+F 静态区、栈区、栈区
+正确答案：C
+a是类中的成员变量，存放在堆区 b、c都是方法中的局部变量，存放在栈区
+
+
+
+Consider the following code:
+Integer s=new Integer(9);
+Integer t=new Integer(9);
+Long u=new Long(9);
+Which test would return true?
+A (s==u)
+B (s==t)
+C (s.equals(t))
+D (s.equals(9))
+E (s.equals(new Integer(9))
+正确答案：CDE
+参考答案：(s==u) ，因为， s 是 Integer 类型， u 是 Long 类型，两个不同类型的引用不能进行 == 比较。   (s==t) ， s 是指向一个 9 的引用，而 t 也是一个指向 9 的引用，虽然都是指向 9 ，但却是指向不同的 9 ，即是两个不同的引用。因此 == 比较返回的是假。   (s.equals(t)) ， Integer 的 equals 方法如下：     public boolean equals(Object obj) {         if (obj instanceof Integer) {             return value == ((Integer)obj).intValue();         }         return false ; } 是 Integer 的实例且 value 值也相等的情况下返回真，其他返回假。 在这里， s 和 t 都是 Integer 类型且值都为 9 ，因此结果为真。   (s.equals(9)) , 在进行 equals 比较之前，会对 9 调用 Integer.valueOf 方法，进行自动装箱 , 由于 IntegerCache 中已经存在 9 ，所以，直接返回其引用，引用相同， equals 就自然相同了。所以结果为真。   (s.equals( new Integer(9)) ，直接创建了一个新的 Integer 实例，但且值也为 9 ，所以，满足条件，返回真。
+B选项是错误的，要注意new Integer一定是一个新对象，要和Integer a=72; Integer b = 720区分开来，虽然Integer有IntegerCache，但是不是这里的考点，不要混淆。
+
+
+abstract类只能用来派生子类，不能用来创建abstract类的对象。
+
+
+Test.main()函数执行后的输出是（ ）
+class Test {
+    public static void main(String[] args) {
+        System.out.println(new B().getValue());
+    }
+    static class A {
+        protected int value;
+        public A (int v) {
+            setValue(v);
+        }
+        public void setValue(int value) {
+            this.value= value;
+        }
+        public int getValue() {
+            try {
+                value ++;
+                return value;
+            } finally {
+                this.setValue(value);
+                System.out.println(value);
+            }
+        }
+    }
+    static class B extends A {
+        public B () {
+            super(5);
+            setValue(getValue()- 3);
+        }
+        public void setValue(int value) {
+            super.setValue(2 * value);
+        }
+    }
+}
+A 6 7 7
+B 22 34 17
+C 22 74 74
+D 11 17 34
+正确答案：B
+官方解析：
+本题较为复杂，具体思路如下：
+
+第一个数值
+
+1.  new B()构造B类实例对象，进入B类的构造方法，B类构造方法的第一行代码用super(5)调用了父类带有参数的构造函数，父类的构造函数又调用了setValue()方法，但值得注意的是，子类中的方法覆盖父类的方法以后，由于向上转型，父类调用的方法实际上是子类的。那么这里的setValue(v);调用了B类的setValue()方法，而B类中setValue()方法又使用super关键字调用了父类的setValue()方法，将B实例的value值设置为2 x 5 = 10。那么到这里，B类的构造函数中第一行代码super(5)执行完毕，程序继续向下执行进入setValue(getValue()- 3);代码块。
+
+2.  这里先执行getValue()方法，但因为B类中并没有重写该方法，这里需要调用父类的getValue()方法。进入A类getValue()方法，首先是value++，那么此时B的成员变量value值由 10变为11，程序继续向下执行，将11作为返回值，但此处要注意的一点是，在Try catch finally体系当中，在return之前始终会执行finally里面的代码，如果finally里面有return，则数据跟随finally改变。如果没有return，则原数据不跟随finally里改变的数据改变。那么进入finally代码块，由于此时正在初始化的是B类的一个对象（运行时多态），因此调用B类的setValue()方法。B类的setValue()方法中使用super关键字调用了父类的setValue()方法，将原有的value*2，即11 x 2 = 22，继续向下进行System.out.println(value);输出第一个数值22。随后，A类的getValue()方法将之前暂存的value=11返回。
+
+第二个数值
+
+1.  拿到getValue()方法返回值之后程序继续运行，此处代码变为setValue(11- 3);根据和之前相同的流程，B类成员变量value的值变为16。程序运行到此处，new B()执行完毕。
+
+2.  回到main函数中，实例化的B类对象调用getValue()方法，B类中并没有重写该方法，需要调用父类的getValue()方法。getValue()方法第一行代码value++将B的成员变量value值变为17，此时执行到return代码，将value=17暂存，等待finally代码块运行完毕后返回。
+
+3.  此处finally代码块执行流程和之前相同，这里不再赘述。那么执行完this.setValue(value);后，value值变为2 x 17 = 34。继续向下进行System.out.println(value);输出第二个数值34，return刚刚暂存的value=17。
+
+第三个数值
+
+回到main函数，将刚刚返回的值输出，就得到了第三个数值17。
+
+综上所述，本题正确答案为B。
+
+
+下面哪些赋值语句是正确的（）
+A long test=012
+B float f=-412
+C int other =(int)true
+D double d=0x12345678
+E byte b=128
+正确答案：ABD
+参考答案：选ABD A和B中long和float，正常定义需要加l和f，但是long和float属于基本类型，会进行转化，所以不会报出异常。AB正确 boolean类型不能和任何类型进行转换，会报出类型异常错误。所以C错。 D选项可以这样定义，D正确。 E选项中，byte的取值范围是-128—127。报出异常： cannot convert from int to byte.所以E选项错误。
