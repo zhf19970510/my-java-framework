@@ -10,6 +10,8 @@ spring:
     # 定义资源文件，多个资源文件使用逗号进行分割
     basename: login,login_en_US,login_zh_CN
     encoding: UTF-8
+  thymeleaf:
+    cache: false
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

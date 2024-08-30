@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhf.dao.DeptMapper">
+
+    <resultMap id="BaseDeptResultMap" type="com.zhf.entity.TDept">
+        <result column="dept_id" jdbcType="VARCHAR" property="deptId"/>
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
+        <result column="dept_level" jdbcType="INTEGER" property="deptLevel"/>
+        <result column="sup_dept" jdbcType="VARCHAR" property="supDept"/>
+    </resultMap>
+
+    <resultMap id="eachDeptToLevelResultMap" type="com.zhf.entity.DeptResp">
+        <result column="dept_id" jdbcType="VARCHAR" property="deptId"/>
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
+        <result column="dept_level" jdbcType="INTEGER" property="deptLeve"/>
+        <result column="sup_dept_id" jdbcType="VARCHAR" property="supDeptId"/>
+        <result column="sup_dept_name" jdbcType="VARCHAR" property="supDeptName"/>
+        <result column="sup_dept_level" jdbcType="INTEGER" property="supDeptLevel"/>
+    </resultMap>
+
+    <select id="queryAllHeadDept" resultMap="BaseDeptResultMap">
+        select dept_id, dept_name, dept_level, sup_dept from t_dept where 1 = 1 and sup_dept is null
+    </select>
+
+    <select id="queryAllSubDeptByHeadDeptId" resultMap="BaseDeptResultMap">
+        <![CDATA[
+        with recursive t1 as (
+            select dept_id, dept_name, dept_level, sup_dept from t_dept where 1 = 1
+                and sup_dept = #{deptId, jdbcType=VARCHAR}
+            union all
+            select t.dept_id, t.dept_name, t.dept_level, t.sup_dept from t_dept t inner join t1 on t1.dept_id = t.sup_dept
+        )
+        select t1.dept_id, t1.dept_name, t1.dept_level, t1.sup_dept from t1 order by t1.dept_id, t1.dept_level;
+        ]]>
+    </select>
+
+    <delete id="deleteAll">
+        delete from dw_dept_rel;
+    </delete>
+
+    <insert id="insertIntoDwDept">
+        insert into dw_dept_rel(sup_dept, sub_dept)
+        values(#{supDeptId, jdbcType=VARCHAR}, #{subDeptId, jdbcType=VARCHAR})
+        on duplicate key update sup_dept = #{supDeptId, jdbcType=VARCHAR}, sub_dept = #{subDeptId, jdbcType=VARCHAR}
+    </insert>
+
+    <select id="queryEachDeptToLevel" resultMap="eachDeptToLevelResultMap">
+        <![CDATA[
+        select t3.dept_id, t3.dept_name, t3.dept_level, t1.dept_id as sup_dept_id, t1.dept_name as sup_dept_name, t1.dept_level as sup_dept_level
+        from t_dept t1
+                 inner join dw_dept_rel t2
+                            on t1.dept_id = t2.sup_dept
+                 inner join t_dept t3
+                            on t3.dept_id = t2.sub_dept
+        where t3.dept_level <= t1.dept_level + #{level,jdbcType=INTEGER}
+        order by sup_dept_level, t3.dept_level, sup_dept_id, t3.dept_id
+        ]]>
+    </select>
+</mapper>
