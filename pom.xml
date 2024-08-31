@@ -364,6 +364,12 @@
             <version>3.0.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.shardingsphere.elasticjob</groupId>
+            <artifactId>elasticjob-lite-spring-boot-starter</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+
         <!--Thymeleaf模板-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
