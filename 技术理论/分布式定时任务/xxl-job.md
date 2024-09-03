@@ -389,3 +389,6 @@ public static void pushCallBack(HandleCallbackParam callback){
 #### XXL-JOB二次开发参考
 
 https://blog.csdn.net/m0_37527542/article/details/104468785
+
+本地xxl-job源码存放路径：
+D:\javastudy\schedule\xxl-job-2.2.0-src\xxl-job-2.2.0
