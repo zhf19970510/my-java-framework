@@ -343,11 +343,101 @@ redission源码（异步/NIO/响应式/设计模式）
 
 
 
+利用线程池隔离的思想进行优化？
+
+参考：my-java-framework项目的ThreadPoolUtil类
+
+
+
 加入缓存、加入线程池隔离、分治思想
+
+
 
 jemeter线程组配置：
 
 ![image-20240917211424515](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202409172114047.png)
+
+
+
+
+
+#### redis缓存
+
+##### cache-misses
+
+冷启动
+
+击穿
+
+穿透
+
+雪崩
+
+##### cache-aside 缓存旁路
+
+先读redis，如果没有，再读db，并更新redis。
+
+普通write，即做set修改操作：双写一致性怎么保证？
+
+先更新redis，根据redis的更新结果，去更新数据库（cache-write-through） 直写
+
+热加载（cache-load)
+
+如果发生数据不一致的情况，需要进行回更。这就是 （cache-write-behind）。
+
+
+
+解决双写一致性方案：（异步场景）
+
+往mq同时写入剩余量和需求量。剩余量也是通过redis扣减之后算出来的。加上一个version版本号的概念，传入数据到mq的时候还带上一个version版本号，回更的时候只针对一个version版本值进行操作，其他相同version值的被丢弃。这样就不会重复消费了。回更的时候version++。需要使用redis的hash结构存储，涉及多值。为了保证使用redis的正确性，可以加入事务，同时执行多步操作。但是事务有性能损耗。可以在事务的外层包上一层pipeline-管道。
+
+![image-20240927060322111](C:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20240927060322111.png)
+
+
+
+
+
+三高系统
+
+高并发：
+
+- 动静分离
+- 多级缓存
+- 负载均衡
+- 接入层
+- HTTP 3.0
+- 响应式网关
+- 常态、瞬时并发
+
+高性能
+
+- 性能指标
+
+- 高并发下谈高性能
+
+- 多级缓存、读写分离
+
+- 异步设计
+
+- 再论并发、莫谈一致性
+
+- 不浪费，才是高性能
+- 接口做好业务划分和切割
+
+高可靠
+
+- 再论负载均衡
+- 服务无状态
+- 服务治理
+- 存储层可靠性
+- 异地多活，可靠，性能，并发
+- 业务隔离
+
+
+
+AKF:
+
+![image-20240928111354898](https://gitee.com/zhf19970510/image-server/raw/master/img_2024/202409281113961.png)
 
 
 
