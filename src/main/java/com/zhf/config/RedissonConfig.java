@@ -16,6 +16,8 @@ public class RedissonConfig {
     public Redisson redisson(){
         Config config = new Config();
         config.useSingleServer().setAddress("redis://127.0.0.1:6379").setDatabase(0);
+
+//        config.setLockWatchdogTimeout(30);  // 默认情况下，看门狗检查锁的超时时间是30秒
         /*config.useClusterServers()
                 .addNodeAddress("redis://192.168.199.141:8001")
                 .addNodeAddress("redis://192.168.199.161:8002")
