@@ -4,6 +4,8 @@ import com.zhf.entity.base.BaseResult;
 import com.zhf.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -51,7 +54,7 @@ public class GlobalExceptionAdvice {
         // 获取当前所有的错误
         List<FieldError> errors = bindingResult.getFieldErrors();
         Map map = new HashMap();
-        for (FieldError fieldError : errors){
+        for (FieldError fieldError : errors) {
             map.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
         if (bindingResult.hasErrors()) {
@@ -101,6 +104,11 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public BaseResult<?> httpRequestMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
         return BaseResult.error("参数无效");
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<String> handleMaxUpLoadSizeExceedException(MaxUploadSizeExceededException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("上传文件大小超过限制");
     }
 
     /**

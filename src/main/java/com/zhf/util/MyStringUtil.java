@@ -37,4 +37,10 @@ public class MyStringUtil {
         return new BigDecimal(data.toString());
     }
 
+    public static String toStr(Object value, String defaultValue) {
+        if (null == value) {
+            return defaultValue;
+        }
+        return value instanceof String ? (String) value : value.toString();
+    }
 }

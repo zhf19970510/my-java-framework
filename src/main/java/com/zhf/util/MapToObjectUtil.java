@@ -1,5 +1,7 @@
 package com.zhf.util;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.commons.beanutils.PropertyUtilsBean;
@@ -34,6 +36,10 @@ public class MapToObjectUtil {
         T t = clazz.newInstance();
         describeBean.populate(t, source);
         return t;
+    }
+
+    public static  <T> T mapToBean(Map<String, Object> map, Class<T> clazz) {
+        return BeanUtil.mapToBean(map, clazz, true, CopyOptions.create());
     }
 
 }
