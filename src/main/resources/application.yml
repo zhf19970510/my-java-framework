@@ -49,3 +49,12 @@ mybatis-plus:
   type-aliases-package: com.zhf.entity
 
 closeScheduleJob: true
+
+# 在java_home中的目录：D:\Java\jdk1.8.0_291\jre\lib\security，检查是否有这两个文件：
+#  US_export_policy.jar,local_policy.jar
+jasypt:
+  encryptor:
+    # 添加的盐
+    password: zhf123456
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator

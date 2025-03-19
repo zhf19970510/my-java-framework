@@ -2,8 +2,6 @@ package com.zhf.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.xmlbeans.impl.common.IOUtil;
-import redis.clients.util.IOUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;

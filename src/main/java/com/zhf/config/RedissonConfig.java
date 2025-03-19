@@ -1,6 +1,7 @@
 package com.zhf.config;
 
 import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.springframework.context.annotation.Bean;
 
@@ -26,5 +27,19 @@ public class RedissonConfig {
                 .addNodeAddress("redis://192.168.199.161:8005")
                 .addNodeAddress("redis://192.168.199.171:8006");*/
         return (Redisson) Redisson.create(config);
+    }
+
+//    @Bean("redissonYamlClient")
+    public RedissonClient redissonYamlClient(){
+//        Config config = null;
+//        try {
+//            config = Config.fromYAML(new ClassPathResource("/redisson-config/single-server.yaml").getInputStream());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return Redisson.create(config);
+        // 便于测试
+        return Redisson.create();
     }
 }
