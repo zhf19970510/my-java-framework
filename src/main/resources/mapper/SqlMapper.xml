@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhf.dao.SqlDao">
+
+    <select id="getSqlQueryResult" resultType="java.util.Map">
+        ${sql}
+    </select>
+
+    <update id="updateRecordBySql">
+        ${sql}
+    </update>
+
+    <delete id="deleteRecordBySql">
+        ${sql}
+    </delete>
+
+    <insert id="insertRecordBySql">
+        ${sql}
+    </insert>
+</mapper>

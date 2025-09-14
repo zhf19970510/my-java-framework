@@ -31,7 +31,10 @@ public class MyClassLoader extends ClassLoader{
             while ((length = ins.read(buffer)) != -1) {
                 baos.write(buffer, 0, length);
             }
-            return baos.toByteArray();
+            byte[] byteArray = baos.toByteArray();
+            baos.close();
+            ins.close();
+            return byteArray;
         } catch (IOException e) {
             e.printStackTrace();
         }
