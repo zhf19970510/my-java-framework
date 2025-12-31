@@ -25,7 +25,7 @@ public class ForkJoinPoolTest {
         // ===================================多线程分而治之累加10亿数据=========================================
         // 在使用ForkJoinPool时，不推荐使用Runnable和Callable，而是使用RecursiveTask和RecursiveAction
         // 可以使用提供的另外两种任务的描述方式
-        // Runnable(没有返回结果) -> RecursiveAction
+        // Runnable(没有返回结果) -> RecursiveAction，这个时候在任务定义中只需要fork，不需要join操作。并且调用的是execute方法
         // Callable(有返回结果) ->   RecursiveTask
         ForkJoinPool forkJoinPool = (ForkJoinPool) Executors.newWorkStealingPool();
         long forkJoinStart = System.nanoTime();
