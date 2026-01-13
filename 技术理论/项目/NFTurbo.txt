@@ -1,0 +1,9 @@
+MySQL: http://192.168.30.140:3306 (用户名/密码: nfturbo/NFTurbo666)
+Redis: http://192.168.30.140:6379 (密码: NFTurbo666)
+Nacos: http://192.168.30.140:8848/nacos (用户名/密码: nacos/nacos)
+XXL-Job: http://192.168.30.140:8082/xxl-job-admin (用户名/密码: admin/123456)
+RocketMQ Dashboard: http://192.168.30.140:8080
+
+或者使用公网：
+http://223.166.96.209:8082/xxl-job-admin
+http://223.166.96.209:8082/xxl-job-admin

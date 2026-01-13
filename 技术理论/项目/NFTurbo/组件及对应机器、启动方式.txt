@@ -1,0 +1,13 @@
+组件及对应机器、启动方式：
+
+ElasticSearch、Kibana
+192.168.30.145
+一般来说，重启下机器既可以，因为已经设置的docker 随机器重启自启动
+也可以手动重启：docker restart 容器id
+
+Nacos、MySQL、Redis、Seata、rockerMQ、XXL-JOB
+192.168.30.140
+一般来说，重启下机器既可以，因为已经设置的docker 随机器重启自启动
+否则：
+docker stop $(docker ps -aq)
+sh /root/software/NFTurbo_DockerCompose/start-core.sh 

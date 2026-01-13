@@ -1,0 +1,5 @@
+如果修改ip地址：
+需要修改：/etc/sysconfig/network-scripts
+
+删除解压后的docker compose文件夹：/root/software/NFTurbo_DockerCompose
+然后重新解压，执行  sh start-core.sh 命令（记得要把获取公网ip代码注释掉），执行命令后手动输入ip地址
