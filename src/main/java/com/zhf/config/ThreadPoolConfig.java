@@ -4,8 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import java.util.concurrent.Executor;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author: 曾鸿发
@@ -13,7 +14,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @description：
  **/
 @Configuration
-public class ThreadPoolConfig {
+public class  ThreadPoolConfig {
 
     @Bean("applicationTaskExecutor")
     public ThreadPoolTaskExecutor taskExecutor(){
@@ -24,6 +25,18 @@ public class ThreadPoolConfig {
         executor.setThreadNamePrefix("task-async" + i);         // 线程前缀名称
         executor.setAllowCoreThreadTimeOut(true);
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());     // 配置拒绝策略
+        return executor;
+    }
+
+
+    @Bean
+    public ThreadPoolExecutor newBuyConsumePool() {
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(
+                20,
+                32,
+                60, TimeUnit.SECONDS,
+                new LinkedBlockingQueue<>());
+
         return executor;
     }
 
