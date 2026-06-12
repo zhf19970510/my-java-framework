@@ -1,8 +1,6 @@
-import com.zhf.entity.User;
+import com.zhf.entity.TestConvertUser;
 import com.zhf.util.DateUtil;
 import com.zhf.util.PasswordUtil;
-import org.apache.commons.lang3.time.DateUtils;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -76,24 +74,24 @@ public class MainTest {
         String pointName = s.substring(s.indexOf(".") + 1);
         System.out.println(pointName);
 
-        User user = new User();
-        user.setUsername("zhf");
-        user.setPassword("123456");
-        user.setId(1);
-        List<User> users = new ArrayList<>();
-        users.add(user);
+        TestConvertUser testConvertUser = new TestConvertUser();
+        testConvertUser.setUsername("zhf");
+        testConvertUser.setPassword("123456");
+        testConvertUser.setId(1);
+        List<TestConvertUser> testConvertUsers = new ArrayList<>();
+        testConvertUsers.add(testConvertUser);
         for(int i = 0; i < 5000; i++){
-            user = new User();
-            user.setUsername("lhl" + i);
-            user.setPassword("56789");
-            user.setId(1);
-            users.add(user);
+            testConvertUser = new TestConvertUser();
+            testConvertUser.setUsername("lhl" + i);
+            testConvertUser.setPassword("56789");
+            testConvertUser.setId(1);
+            testConvertUsers.add(testConvertUser);
         }
-        for (User user1 : users) {
-            System.out.println(user1);
+        for (TestConvertUser testConvertUser1 : testConvertUsers) {
+            System.out.println(testConvertUser1);
         }
         long startTime = System.currentTimeMillis();
-        List<User> collect = users.stream().filter(t -> !"zhf".equals(t.getUsername())).collect(Collectors.toList());
+        List<TestConvertUser> collect = testConvertUsers.stream().filter(t -> !"zhf".equals(t.getUsername())).collect(Collectors.toList());
         System.out.println("耗费" + (System.currentTimeMillis() - startTime) + "毫秒");
         System.out.println(collect);
 
@@ -101,7 +99,7 @@ public class MainTest {
         name += "\t" + "lhl";
         System.out.println(name);
 
-        List<String> userNames = users.stream().filter(t -> t.getPassword().equals("56789")).filter(t -> t.getUsername().contains("lhl1881")).map(User::getUsername).collect(Collectors.toList());
+        List<String> userNames = testConvertUsers.stream().filter(t -> t.getPassword().equals("56789")).filter(t -> t.getUsername().contains("lhl1881")).map(TestConvertUser::getUsername).collect(Collectors.toList());
         userNames.forEach(t -> System.out.println(t));
         List<String> pointNum = new ArrayList<>();
         pointNum.add("111");

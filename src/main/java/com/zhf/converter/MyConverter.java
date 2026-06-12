@@ -1,6 +1,6 @@
 package com.zhf.converter;
 
-import com.zhf.entity.User;
+import com.zhf.entity.TestConvertUser;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -16,18 +16,18 @@ import org.springframework.stereotype.Component;
  * 并且在annotation-driven 对应注解中指明具体的conversion-service <mvc:annotation-driven conversion-service="conversionService">
  */
 @Component
-public class MyConverter implements Converter<String, User> {
+public class MyConverter implements Converter<String, TestConvertUser> {
 
     @Override
-    public User convert(String source) {
-        User user = null;
+    public TestConvertUser convert(String source) {
+        TestConvertUser testConvertUser = null;
         if(StringUtils.isNotBlank(source) && source.split("-").length == 4){
-            user = new User();
-            user.setId(Integer.parseInt(source.split("-")[0]));
-            user.setUsername(source.split("-")[1]);
-            user.setAge(Integer.parseInt(source.split("-")[2]));
-            user.setPassword(source.split("-")[3]);
+            testConvertUser = new TestConvertUser();
+            testConvertUser.setId(Integer.parseInt(source.split("-")[0]));
+            testConvertUser.setUsername(source.split("-")[1]);
+            testConvertUser.setAge(Integer.parseInt(source.split("-")[2]));
+            testConvertUser.setPassword(source.split("-")[3]);
         }
-        return user;
+        return testConvertUser;
     }
 }

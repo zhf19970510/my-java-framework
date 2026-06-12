@@ -1,0 +1,17 @@
+POST http://localhost:8087/api/users/batch/batch-executor
+Content-Type: application/json
+
+[
+  {"userName": "批量用户1", "age": 18, "sex": 1, "placeOfOrigin": "北京", "university": "北大"},
+  {"userName": "批量用户2", "age": 19, "sex": 2, "placeOfOrigin": "上海", "university": "复旦"},
+  {"userName": "批量用户3", "age": 20, "sex": 1, "placeOfOrigin": "广州", "university": "中大"}
+]
+
+POST http://localhost:8087/api/users/batch/benchmark
+Content-Type: application/json
+
+[
+  {"userName": "性能测试1", "age": 25, "sex": 1, "placeOfOrigin": "深圳", "university": "深大"},
+  {"userName": "性能测试2", "age": 26, "sex": 2, "placeOfOrigin": "杭州", "university": "浙大"}
+  // ... 可以添加更多用户进行压力测试
+]

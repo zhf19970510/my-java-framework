@@ -1,6 +1,6 @@
 package com.zhf.controller;
 
-import com.zhf.entity.User;
+import com.zhf.entity.TestConvertUser;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class MyConverterController {
 
     @RequestMapping("/converter")
-    public String testConverter(User user, Model model){
-        System.out.println(user);
-        model.addAttribute("user", user);
+    public String testConverter(TestConvertUser testConvertUser, Model model){
+        System.out.println(testConvertUser);
+        model.addAttribute("user", testConvertUser);
         return "success";
     }
 }

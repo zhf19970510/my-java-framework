@@ -1,0 +1,15 @@
+CREATE TABLE `user` (
+`user_id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+`user_name` VARCHAR(50) NOT NULL COMMENT '用户名',
+`age` INT DEFAULT NULL COMMENT '年龄',
+`sex` TINYINT DEFAULT NULL COMMENT '性别：0-未知 1-男 2-女',
+`place_of_origin` VARCHAR(100) DEFAULT NULL COMMENT '籍贯',
+`university` VARCHAR(100) DEFAULT NULL COMMENT '毕业院校',
+`create_by` VARCHAR(50) DEFAULT NULL COMMENT '创建人',
+`create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+`update_by` VARCHAR(50) DEFAULT NULL COMMENT '更新人',
+`update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+PRIMARY KEY (`user_id`),
+INDEX `idx_user_name` (`user_name`),
+INDEX `idx_university` (`university`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
