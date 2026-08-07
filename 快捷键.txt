@@ -1,1 +1,18 @@
 ctrl + alt + H : 查看类调用关系
+
+IntelliJ IDEA（及 WebStorm/PyCharm 等 JetBrains 系）
+
+全局万能搜索（文件/类/符号/操作/设置一起搜）
+
+连按 Shift 两次（Search Everywhere），再输入文件名；按 Tab 可切到 Files 标签页
+
+
+VS Code
+
+Quick Open 按文件名跳转（推荐）
+
+Windows / Linux：Ctrl + P
+
+macOS：Cmd + P
+
+输入文件名或路径片段（如 src/comp/btn模糊匹配 src/components/Button.tsx），支持驼峰缩写
