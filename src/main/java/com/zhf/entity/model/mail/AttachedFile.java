@@ -1,6 +1,6 @@
 package com.zhf.entity.model.mail;
 
-import com.zhf.util.FileUtil;
+import com.zhf.util.file.FileUtil;
 
 import javax.activation.DataSource;
 

@@ -3,6 +3,7 @@ package com.zhf.util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhf.MyJavaFrameworkApplication;
 import com.zhf.entity.Person;
+import com.zhf.util.redis.RedisJsonUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

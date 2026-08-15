@@ -1,5 +1,6 @@
 package com.zhf.util;
 
+import com.zhf.util.http.IPUtil;
 import org.junit.Test;
 
 public class IPUtilTest {

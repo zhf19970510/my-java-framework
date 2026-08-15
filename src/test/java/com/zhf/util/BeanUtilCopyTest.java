@@ -3,6 +3,7 @@ package com.zhf.util;
 import com.zhf.entity.Account;
 import com.zhf.entity.do1.TradeModel;
 import com.zhf.entity.do1.TradeModelClone;
+import com.zhf.util.bean.BeanUtilCopy;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeanUtils;

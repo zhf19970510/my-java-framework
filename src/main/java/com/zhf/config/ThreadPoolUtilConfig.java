@@ -1,6 +1,6 @@
 package com.zhf.config;
 
-import com.zhf.util.ThreadPoolUtil;
+import com.zhf.util.thread.ThreadPoolUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

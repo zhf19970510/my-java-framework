@@ -1,5 +1,7 @@
 package com.zhf.util;
 
+import com.zhf.util.string.BasicStringUtils;
+
 public class BasicStringUtilsTest {
 
     public static void main(String[] args) {

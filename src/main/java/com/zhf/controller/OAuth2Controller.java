@@ -1,6 +1,6 @@
 package com.zhf.controller;
 
-import com.zhf.util.HttpUtil1s;
+import com.zhf.util.http.HttpUtil1s;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Controller;

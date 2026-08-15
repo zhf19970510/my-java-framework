@@ -5,6 +5,8 @@ import org.dozer.DozerBeanMapper;
 import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.util.StopWatch;
 
+import com.zhf.util.bean.BeanCopierUtil;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 

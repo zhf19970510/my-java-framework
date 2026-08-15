@@ -3,7 +3,7 @@ package com.zhf.service.impl;
 import com.zhf.annotation.Timeout;
 import com.zhf.aop.TimeoutAspect;
 import com.zhf.service.TimeoutService;
-import com.zhf.util.CombinationUtil;
+import com.zhf.util.collection.CombinationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

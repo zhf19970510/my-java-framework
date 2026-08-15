@@ -3,7 +3,7 @@ package com.zhf.controller;
 import com.zhf.aop.TimeoutAspect;
 import com.zhf.entity.base.BaseResult;
 import com.zhf.service.TimeoutService;
-import com.zhf.util.CombinationUtil;
+import com.zhf.util.collection.CombinationUtil;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.cglib.core.ReflectUtils;

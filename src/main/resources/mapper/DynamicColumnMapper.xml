@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhf.dao.DynamicColumnMapper">
+
+    <!-- ==================== 通用结果映射 ==================== -->
+    <resultMap id="BaseResultMap" type="com.zhf.entity.DynamicColumn">
+        <id     column="pk_id"             property="pkId"           jdbcType="VARCHAR" />
+        <result column="col_tinyint"       property="colTinyint"     jdbcType="TINYINT" />
+        <result column="col_smallint"      property="colSmallint"    jdbcType="SMALLINT" />
+        <result column="col_mediumint"     property="colMediumint"   jdbcType="INTEGER" />
+        <result column="col_int"           property="colInt"         jdbcType="INTEGER" />
+        <result column="col_bigint"        property="colBigint"      jdbcType="BIGINT" />
+        <result column="col_unsigned_int" property="colUnsignedInt" jdbcType="INTEGER" />
+        <result column="col_decimal"       property="colDecimal"    jdbcType="DECIMAL" />
+        <result column="col_float"         property="colFloat"      jdbcType="FLOAT" />
+        <result column="col_double"        property="colDouble"     jdbcType="DOUBLE" />
+        <result column="col_bit"           property="colBit"         jdbcType="BINARY" />
+        <result column="col_char"          property="colChar"        jdbcType="CHAR" />
+        <result column="col_varchar"       property="colVarchar"     jdbcType="VARCHAR" />
+        <result column="col_tinytext"     property="colTinytext"    jdbcType="VARCHAR" />
+        <result column="col_text"         property="colText"        jdbcType="LONGVARCHAR" />
+        <result column="col_mediumtext"   property="colMediumtext"  jdbcType="LONGVARCHAR" />
+        <result column="col_longtext"     property="colLongtext"    jdbcType="LONGVARCHAR" />
+        <result column="col_binary"       property="colBinary"      jdbcType="BINARY" />
+        <result column="col_varbinary"    property="colVarbinary"   jdbcType="VARBINARY" />
+        <result column="col_blob"         property="colBlob"        jdbcType="BLOB" />
+        <result column="col_date"         property="colDate"        jdbcType="DATE" />
+        <result column="col_time"         property="colTime"         jdbcType="TIME" />
+        <result column="col_datetime"     property="colDatetime"    jdbcType="TIMESTAMP" />
+        <result column="col_timestamp"    property="colTimestamp"   jdbcType="TIMESTAMP" />
+        <result column="col_year"         property="colYear"        jdbcType="INTEGER" />
+        <result column="col_enum"         property="colEnum"        jdbcType="VARCHAR" />
+        <result column="col_set"          property="colSet"         jdbcType="VARCHAR" />
+        <result column="col_json"         property="colJson"        jdbcType="VARCHAR" />
+        <result column="create_by"        property="createBy"        jdbcType="VARCHAR" />
+        <result column="create_time"      property="createTime"     jdbcType="TIMESTAMP" />
+        <result column="update_by"        property="updateBy"       jdbcType="VARCHAR" />
+        <result column="update_time"      property="updateTime"     jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <!-- ==================== 通用列列表 ==================== -->
+    <sql id="BaseColumns">
+        pk_id, col_tinyint, col_smallint, col_mediumint, col_int, col_bigint,
+        col_unsigned_int, col_decimal, col_float, col_double, col_bit,
+        col_char, col_varchar, col_tinytext, col_text, col_mediumtext, col_longtext,
+        col_binary, col_varbinary, col_blob,
+        col_date, col_time, col_datetime, col_timestamp, col_year,
+        col_enum, col_set, col_json,
+        create_by, create_time, update_by, update_time
+    </sql>
+
+    <!-- ==================== 通用值占位符 ==================== -->
+    <sql id="BaseValues">
+        #{pkId,             jdbcType=VARCHAR},
+        #{colTinyint,       jdbcType=TINYINT},
+        #{colSmallint,      jdbcType=SMALLINT},
+        #{colMediumint,     jdbcType=INTEGER},
+        #{colInt,           jdbcType=INTEGER},
+        #{colBigint,        jdbcType=BIGINT},
+        #{colUnsignedInt,   jdbcType=INTEGER},
+        #{colDecimal,       jdbcType=DECIMAL},
+        #{colFloat,         jdbcType=FLOAT},
+        #{colDouble,        jdbcType=DOUBLE},
+        #{colBit,           jdbcType=BINARY},
+        #{colChar,          jdbcType=CHAR},
+        #{colVarchar,       jdbcType=VARCHAR},
+        #{colTinytext,      jdbcType=VARCHAR},
+        #{colText,          jdbcType=LONGVARCHAR},
+        #{colMediumtext,    jdbcType=LONGVARCHAR},
+        #{colLongtext,      jdbcType=LONGVARCHAR},
+        #{colBinary,        jdbcType=BINARY},
+        #{colVarbinary,     jdbcType=VARBINARY},
+        #{colBlob,          jdbcType=BLOB},
+        #{colDate,          jdbcType=DATE},
+        #{colTime,          jdbcType=TIME},
+        #{colDatetime,      jdbcType=TIMESTAMP},
+        #{colTimestamp,     jdbcType=TIMESTAMP},
+        #{colYear,          jdbcType=INTEGER},
+        #{colEnum,          jdbcType=VARCHAR},
+        #{colSet,           jdbcType=VARCHAR},
+        #{colJson,          jdbcType=VARCHAR},
+        #{createBy,         jdbcType=VARCHAR},
+        #{createTime,       jdbcType=TIMESTAMP},
+        #{updateBy,         jdbcType=VARCHAR},
+        #{updateTime,       jdbcType=TIMESTAMP}
+    </sql>
+
+    <!-- ==================== 单条插入 ==================== -->
+    <!-- 注意：主键 pk_id 由业务代码塞值(UUID)，不使用 useGeneratedKeys -->
+    <insert id="insert" parameterType="com.zhf.entity.DynamicColumn">
+        INSERT INTO t_dynamic_column (
+            <include refid="BaseColumns" />
+        ) VALUES (
+            <include refid="BaseValues" />
+        )
+    </insert>
+
+    <!-- ==================== 批量插入(foreach多值INSERT) ==================== -->
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO t_dynamic_column (
+            <include refid="BaseColumns" />
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+                #{item.pkId,             jdbcType=VARCHAR},
+                #{item.colTinyint,       jdbcType=TINYINT},
+                #{item.colSmallint,      jdbcType=SMALLINT},
+                #{item.colMediumint,     jdbcType=INTEGER},
+                #{item.colInt,           jdbcType=INTEGER},
+                #{item.colBigint,        jdbcType=BIGINT},
+                #{item.colUnsignedInt,   jdbcType=INTEGER},
+                #{item.colDecimal,       jdbcType=DECIMAL},
+                #{item.colFloat,         jdbcType=FLOAT},
+                #{item.colDouble,        jdbcType=DOUBLE},
+                #{item.colBit,           jdbcType=BINARY},
+                #{item.colChar,          jdbcType=CHAR},
+                #{item.colVarchar,       jdbcType=VARCHAR},
+                #{item.colTinytext,      jdbcType=VARCHAR},
+                #{item.colText,          jdbcType=LONGVARCHAR},
+                #{item.colMediumtext,    jdbcType=LONGVARCHAR},
+                #{item.colLongtext,      jdbcType=LONGVARCHAR},
+                #{item.colBinary,        jdbcType=BINARY},
+                #{item.colVarbinary,     jdbcType=VARBINARY},
+                #{item.colBlob,          jdbcType=BLOB},
+                #{item.colDate,          jdbcType=DATE},
+                #{item.colTime,          jdbcType=TIME},
+                #{item.colDatetime,      jdbcType=TIMESTAMP},
+                #{item.colTimestamp,     jdbcType=TIMESTAMP},
+                #{item.colYear,          jdbcType=INTEGER},
+                #{item.colEnum,          jdbcType=VARCHAR},
+                #{item.colSet,           jdbcType=VARCHAR},
+                #{item.colJson,          jdbcType=VARCHAR},
+                #{item.createBy,         jdbcType=VARCHAR},
+                #{item.createTime,       jdbcType=TIMESTAMP},
+                #{item.updateBy,        jdbcType=VARCHAR},
+                #{item.updateTime,       jdbcType=TIMESTAMP}
+            )
+        </foreach>
+    </insert>
+
+    <!-- ==================== 根据主键更新 ==================== -->
+    <update id="update" parameterType="com.zhf.entity.DynamicColumn">
+        UPDATE t_dynamic_column
+        <set>
+            col_tinyint       = #{colTinyint,       jdbcType=TINYINT},
+            col_smallint      = #{colSmallint,      jdbcType=SMALLINT},
+            col_mediumint     = #{colMediumint,     jdbcType=INTEGER},
+            col_int           = #{colInt,           jdbcType=INTEGER},
+            col_bigint        = #{colBigint,        jdbcType=BIGINT},
+            col_unsigned_int = #{colUnsignedInt,   jdbcType=INTEGER},
+            col_decimal       = #{colDecimal,       jdbcType=DECIMAL},
+            col_float         = #{colFloat,         jdbcType=FLOAT},
+            col_double        = #{colDouble,        jdbcType=DOUBLE},
+            col_bit           = #{colBit,           jdbcType=BINARY},
+            col_char          = #{colChar,          jdbcType=CHAR},
+            col_varchar       = #{colVarchar,       jdbcType=VARCHAR},
+            col_tinytext      = #{colTinytext,      jdbcType=VARCHAR},
+            col_text          = #{colText,          jdbcType=LONGVARCHAR},
+            col_mediumtext    = #{colMediumtext,    jdbcType=LONGVARCHAR},
+            col_longtext      = #{colLongtext,      jdbcType=LONGVARCHAR},
+            col_binary        = #{colBinary,        jdbcType=BINARY},
+            col_varbinary     = #{colVarbinary,     jdbcType=VARBINARY},
+            col_blob          = #{colBlob,          jdbcType=BLOB},
+            col_date          = #{colDate,          jdbcType=DATE},
+            col_time          = #{colTime,          jdbcType=TIME},
+            col_datetime      = #{colDatetime,      jdbcType=TIMESTAMP},
+            col_timestamp     = #{colTimestamp,     jdbcType=TIMESTAMP},
+            col_year          = #{colYear,          jdbcType=INTEGER},
+            col_enum          = #{colEnum,          jdbcType=VARCHAR},
+            col_set           = #{colSet,           jdbcType=VARCHAR},
+            col_json          = #{colJson,          jdbcType=VARCHAR},
+            update_by         = #{updateBy,        jdbcType=VARCHAR},
+            update_time       = #{updateTime,       jdbcType=TIMESTAMP},
+        </set>
+        WHERE pk_id = #{pkId, jdbcType=VARCHAR}
+    </update>
+
+    <!-- ==================== 根据主键删除 ==================== -->
+    <delete id="deleteById">
+        DELETE FROM t_dynamic_column WHERE pk_id = #{pkId, jdbcType=VARCHAR}
+    </delete>
+
+    <!-- ==================== 清空表数据(测试用) ==================== -->
+    <delete id="deleteAll">
+        DELETE FROM t_dynamic_column
+    </delete>
+
+    <!-- ==================== 根据主键查询 ==================== -->
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumns" />
+        FROM t_dynamic_column
+        WHERE pk_id = #{pkId, jdbcType=VARCHAR}
+    </select>
+
+    <!-- ==================== 查询所有 ==================== -->
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumns" />
+        FROM t_dynamic_column
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>

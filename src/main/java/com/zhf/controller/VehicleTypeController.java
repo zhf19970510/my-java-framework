@@ -3,7 +3,7 @@ package com.zhf.controller;
 
 import com.zhf.entity.base.BaseResult;
 import com.zhf.entity.dto.VehicleTypeDTO;
-import com.zhf.util.EmailUtil;
+import com.zhf.util.mail.EmailUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.annotation.Validated;

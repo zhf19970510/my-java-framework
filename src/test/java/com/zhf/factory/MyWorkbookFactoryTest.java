@@ -1,7 +1,7 @@
 package com.zhf.factory;
 
 import com.zhf.MyJavaFrameworkApplication;
-import com.zhf.util.ExcelUtil;
+import com.zhf.util.excel.ExcelUtil;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.junit.Test;

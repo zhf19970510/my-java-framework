@@ -3,7 +3,7 @@ package com.zhf.resolver;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.zhf.config.HeaderMapRequestWrapper;
-import com.zhf.util.JwtUtils;
+import com.zhf.util.crypto.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.core.MethodParameter;

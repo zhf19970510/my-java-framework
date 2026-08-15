@@ -1,5 +1,8 @@
 package com.zhf.util;
 
+import com.zhf.util.file.FileErrorException;
+import com.zhf.util.ftp.FTPProperty;
+import com.zhf.util.ftp.FTPUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.junit.Test;
 

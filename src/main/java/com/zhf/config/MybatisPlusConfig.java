@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
+import com.zhf.interceptor.BatchRewriteInterceptor;
+import org.apache.ibatis.plugin.Interceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -38,5 +40,16 @@ public class MybatisPlusConfig {
         return new OptimisticLockerInterceptor();
     }
 
+    /**
+     * 批量插入SQL改写拦截器
+     * <p>
+     * 实现类似 MySQL JDBC 驱动 rewriteBatchedStatements 参数的功能，
+     * 在 MyBatis 层面拦截 INSERT 语句进行 SQL 改写。
+     * 配合 {@link com.zhf.util.BatchInsertUtil} 使用。
+     */
+    @Bean
+    public Interceptor batchRewriteInterceptor() {
+        return new BatchRewriteInterceptor();
+    }
 
 }

@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static com.zhf.util.SnowUtil.calculateAndGetSnowId;
+import static com.zhf.util.id.SnowUtil.calculateAndGetSnowId;
 
 public class SnowUtilTest {
 

@@ -1,6 +1,8 @@
 package com.zhf.util;
 
 import com.zhf.entity.Student;
+import com.zhf.util.bean.MapToObjectUtil;
+import com.zhf.util.bean.MyBeanUtils;
 import com.zhf.util.pojo.Grand;
 import org.junit.Test;
 import org.junit.runner.RunWith;

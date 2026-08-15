@@ -1,5 +1,6 @@
 package com.zhf.util;
 
+import com.zhf.util.number.MyNumberUtil;
 import org.junit.Test;
 
 public class MyNumberUtilTest {

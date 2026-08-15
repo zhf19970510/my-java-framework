@@ -1,6 +1,6 @@
 import com.zhf.entity.TestConvertUser;
-import com.zhf.util.DateUtil;
-import com.zhf.util.PasswordUtil;
+import com.zhf.util.date.DateUtil;
+import com.zhf.util.crypto.PasswordUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

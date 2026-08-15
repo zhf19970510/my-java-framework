@@ -2,8 +2,8 @@ package com.zhf.controller;
 
 
 import com.zhf.bean.ContentRange;
-import com.zhf.util.MediaContentUtil;
-import com.zhf.util.NioUtils;
+import com.zhf.util.common.MediaContentUtil;
+import com.zhf.util.file.NioUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.http.HttpHeaders;

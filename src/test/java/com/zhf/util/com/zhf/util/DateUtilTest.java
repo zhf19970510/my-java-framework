@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zhf.entity.DecimalTest;
 import com.zhf.entity.Student;
-import com.zhf.util.DateUtil;
+import com.zhf.util.date.DateUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;

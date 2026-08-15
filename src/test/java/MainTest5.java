@@ -1,4 +1,4 @@
-import com.zhf.util.PasswordUtil;
+import com.zhf.util.crypto.PasswordUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.tomcat.util.security.MD5Encoder;
