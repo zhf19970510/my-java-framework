@@ -1,0 +1,26 @@
+第一次对话：
+
+你是一个优秀的数据库设计专家及高级架构师，帮我写一个DDL语句以及实现对应的controller、service、mapper代码及其他设计要求。
+
+## 要求：
+1. 表名为t_dynamic_column，表注释为mybatis批量插入改写表。
+2. 字段名自定义生成，生成的字段名在50个字符以内。
+3. 字段的类型尽量覆盖实际生产应用中所有的数据类型。
+4. 生成的主键不要用自增主键，业务代码中主动塞值。
+5. 根据生成的DDL语句，生成对应的controller、service、mapper代码。
+6. 实现一个工具类，该工具类方法实现类似mybatis使用<foreach>批量插入的功能。要求入参是一个List<T>和Function<T, Integer>，Function对应单值插入的mapper的insert方法。该方法根据传入的Function，完成sql改写，即完成mysql的rewriteBatchedStatements参数类似的功能，完成sql改写，由insert into(...)values(...); insert into(...)values(...); 转成 insert into(...)values(...)(...)...;的sql改写，并最终使用sqlSession进行提交sql的功能，该方法要求关闭自动提交，执行完方法后才进行手动提交，代码逻辑中要有提交、回滚、即关闭session连接逻辑。
+7. 帮我在生成一个单元测试。该测试方法要求测试 for循环调用单值插入、SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);方式批量插入、以及通过工具类sql改写然后提交 这几种方式的性能差异。使用StopWatch监控打印。
+8. 单元测试插入的主键值用UUID生成，方便可以重复测试。
+9. 基于现有的项目架构及jdk8、pom以引入的依赖、相关yaml配置，在适当的地方写合适的代码。保证编译正常。
+10. 单元测试的方法可以分成多个，比如批量插入100、1000、3000条数据，插入不同数据量用不同方法。方便测试。
+
+
+## 输出要求：
+1. 生成的DDL语句放在 E:\code\my-java-framework\DB 目录下
+2. 生成的mapper的sql语句中要包含单值和批量插入（用<foreach>插入)的两种插入方法，修改、删除、查询的sql也要生成。
+3. 代码注释要补全，便于看懂。
+4. 生成的代码中，适当的地方打印适当的log日志，方便控制台监控。
+
+
+第二次对话：
+帮我再优化下生成的BatchInsertUtil类，帮我将@Component移除，即该类不注入到Spring容器中，batchInsertWithSqlRewrite改成静态方法，SqlSessionFactory对象从SpringUtil.getBean中获取。调用该方法的地方，统一改成静态调用
