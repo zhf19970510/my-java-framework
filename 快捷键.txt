@@ -1,5 +1,7 @@
 ctrl + alt + H : 查看类调用关系
 
+crtl + alt + B : 查看接口实现
+
 IntelliJ IDEA（及 WebStorm/PyCharm 等 JetBrains 系）
 
 全局万能搜索（文件/类/符号/操作/设置一起搜）
