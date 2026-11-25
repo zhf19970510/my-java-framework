@@ -1,4 +1,5 @@
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -15,6 +16,7 @@ import java.net.Socket;
 public class EmployeeTest {
 
     @Test
+    @DisplayName("测试员工地址修改")
     public void testGenerateEmployee(){
         Employee employee = new Employee();
         employee.setAddress("123");
@@ -27,6 +29,7 @@ public class EmployeeTest {
     }
 
     @Test
+    @DisplayName("测试BigDecimal")
     public void testSubstract(){
         System.out.println(234578.9722 - 97281.8176);
 
